@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin title="artifactCatalog" loader="DEFAULT">
+<overlays>
+		<overlay id="startup.artifactCatalog" resourcebundle="content/artifactCatalog/resources/lang/messages">
+			<menubar id="toolsmenu">
+	        	<menuitem id="artifactCatalog" label="${Launcher.artifactCatalog}" command="mantleXulHandler.openUrl('${Launcher.artifactCatalog}','${Launcher.artifactCatalog_TOOLTIP}','plugin/artifactCatalog/api/default')"/>
+	      	</menubar>
+	    </overlay>
+	</overlays>
+	<lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
+	<static-paths>
+		<static-path url="/artifactCatalog/static" localFolder="static"/>
+		<static-path url="/artifactCatalog/resources" localFolder="resources"/>
+	</static-paths>
+	<content-types>
+		<content-type>
+			<title>ArtifactCatalog</title>
+			<description></description>
+			<company name="" url="" logo="@PLUGIN_COMPANY_LOGO@"></company>
+		</content-type>
+	</content-types>
+	<content-generator
+		id="artifactCatalog"
+		title="ArtifactCatalog"
+		type="artifactCatalog"
+		class="pt.webdetails.cpk.CpkContentGenerator"/>
+	<!-- Menu entry -->
+	<menu-items>
+		<!--<menu-item id="artifactCatalog_main" anchor="tools-submenu" label="ArtifactCatalog" command="content/artifactCatalog/" type="MENU_ITEM" how="LAST_CHILD"/>-->
+	</menu-items>
+</plugin>

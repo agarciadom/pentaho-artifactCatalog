@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf><title>Add/update resource</title><description>Adds or updates a resource, based on the 'resourceID' query parameter. The 'sectionID' query parameter can be used to change the default section in the form.</description><author></author><style>Clean</style><rendererType>blueprint</rendererType><widget>false</widget><widgetName></widgetName><widgetParameters></widgetParameters></cdf>

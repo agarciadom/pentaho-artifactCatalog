@@ -1,0 +1,40 @@
+# NOTE: in addition to this file, you should add the username and password
+# of the administrator user to your ~/.kettle/kettle.properties file,
+# which should be only readable by the user running Pentaho.
+#
+# For a stock Pentaho CE install, use this lines and uncomment them:
+#
+# ARTIFACTCATALOG_RESTAPI_USER=Admin
+# ARTIFACTCATALOG_RESTAPI_PWD=password
+
+# Location of the Pentaho REST API 
+scheme: "http"
+host: "localhost"
+port: 8080
+baseURI: "/pentaho/api"
+
+# JNDI connection to the database
+jndi: "artifact_catalog"
+
+# Regexps for filtering the artifacts to list in the admin dashboards
+# (whole filename has to match)
+includeArtifacts: ".*([wx]cdf|prpt|xjpivot|saiku|pdf|xlsx?)"
+excludeArtifacts: ".*(plugin[-]samples|bi[-]developers|_tmp).*"
+
+# Image upload configuration:
+#
+# - If using CFR to serve the files, make sure imagesDirectory and
+#   cfrUploadDirectory are set to the same path. cfrGrantRead should
+#   be true, so regular users will be able to see the images uploaded
+#   by the administrators.
+#
+# - If using a separate web server for images (e.g. Apache or nginx),
+#   imagesDirectory should be the path to a directory served by the
+#   web server at imagesBaseURL. cfrUploadDirectory will usually be
+#   in a different folder, and cfrGrantRead should be false.
+imagesDirectory: "/srv/pentaho/biserver-ce/pentaho-solutions/system/.cfr"
+imagesBaseURL: "/pentaho/plugin/cfr/api/viewFile?fileName="
+cfrUploadDirectory: "/srv/pentaho/biserver-ce/pentaho-solutions/system/.cfr"
+
+# Grant all users access to uploaded images through CFR?
+cfrGrantRead: !!bool true

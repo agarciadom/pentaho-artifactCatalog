@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf><title>​Artifact Catalog</title><description>Main dashboard, listing all the available artifacts for the current user.</description><author>Dirección General de Sistemas de Información de la Universidad de Cádiz</author><style>Clean</style><rendererType>blueprint</rendererType><require>false</require><widget>false</widget><widgetName></widgetName><widgetParameters></widgetParameters></cdf>

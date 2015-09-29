@@ -1,0 +1,1215 @@
+{
+ "layout": {
+  "title": "Top Filter Template",
+  "rows": [
+   {
+    "id": "86c5d154-c267-7464-0c18-5d8c496b98a0",
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "extraCSS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceCode",
+      "value": "#filesPanelTable tbody .column0, #filesPanelTable tbody .column3, #filesPanelTable tbody .column1  {\n    text-decoration: underline;\n    color: blue;\n    cursor: pointer;\n}\n ",
+      "type": "Resource"
+     },
+     {
+      "name": "resourceType",
+      "value": "Css",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "0aa5deeb-a702-13e9-58da-26275e8df910",
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "projectCSS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceFile",
+      "value": "/pentaho/api/repos/artifactCatalog/static/custom/css/artifactCatalog.css",
+      "type": "ResourceFile"
+     },
+     {
+      "name": "resourceType",
+      "value": "Css",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "51aba4e6-5beb-2f05-4d86-96e2ef3f49f0",
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "projectJS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceFile",
+      "value": "/pentaho/api/repos/artifactCatalog/static/custom/js/artifactCatalog.js",
+      "type": "ResourceFile"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "cda9bf5f-0f51-13db-68ac-616cef3e73be",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "Spacer"
+     },
+     {
+      "name": "height",
+      "type": "Integer",
+      "value": "5"
+     },
+     {
+      "name": "backgroundColor",
+      "type": "Color",
+      "value": ""
+     },
+     {
+      "name": "roundCorners",
+      "type": "RoundCorners",
+      "value": ""
+     },
+     {
+      "name": "textAlign",
+      "type": "TextAlign",
+      "value": ""
+     },
+     {
+      "name": "cssClass",
+      "type": "String",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "id": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "Body"
+     },
+     {
+      "name": "height",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "backgroundColor",
+      "type": "Color",
+      "value": "#ffffff"
+     },
+     {
+      "name": "roundCorners",
+      "type": "RoundCorners",
+      "value": "cdfdd-round"
+     },
+     {
+      "name": "textAlign",
+      "type": "TextAlign",
+      "value": ""
+     },
+     {
+      "name": "cssClass",
+      "type": "String",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "id": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "type": "LayoutColumn",
+    "typeDesc": "Column",
+    "parent": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "Content"
+     },
+     {
+      "name": "columnSpan",
+      "type": "Integer",
+      "value": "24"
+     },
+     {
+      "name": "columnPrepend",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "columnAppend",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "columnPrependTop",
+      "type": "Boolean",
+      "value": false
+     },
+     {
+      "name": "columnAppendBottom",
+      "type": "Boolean",
+      "value": false
+     },
+     {
+      "name": "columnBorder",
+      "type": "Boolean",
+      "value": false
+     },
+     {
+      "name": "columnBigBorder",
+      "type": "Boolean",
+      "value": false
+     },
+     {
+      "name": "height",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "backgroundColor",
+      "type": "Color",
+      "value": ""
+     },
+     {
+      "name": "roundCorners",
+      "type": "RoundCorners",
+      "value": ""
+     },
+     {
+      "name": "textAlign",
+      "type": "TextAlign",
+      "value": ""
+     },
+     {
+      "name": "cssClass",
+      "type": "String",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "id": "cbfee5d3-92e7-2f3a-75de-69e81df1951f",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "selectUserPanel"
+     },
+     {
+      "name": "height",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "backgroundColor",
+      "type": "Color",
+      "value": ""
+     },
+     {
+      "name": "roundCorners",
+      "type": "RoundCorners",
+      "value": ""
+     },
+     {
+      "name": "textAlign",
+      "type": "TextAlign",
+      "value": ""
+     },
+     {
+      "name": "cssClass",
+      "type": "String",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "id": "fdbab606-f70b-bd3f-2348-c474caa005c9",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "rolesPanel"
+     },
+     {
+      "name": "height",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "backgroundColor",
+      "type": "Color",
+      "value": ""
+     },
+     {
+      "name": "roundCorners",
+      "type": "RoundCorners",
+      "value": ""
+     },
+     {
+      "name": "textAlign",
+      "type": "TextAlign",
+      "value": ""
+     },
+     {
+      "name": "cssClass",
+      "type": "String",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "id": "234a0f95-444c-f924-75ae-1e65a8158b6e",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "properties": [
+     {
+      "name": "name",
+      "value": "refreshPanel",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "right",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "63f50d56-0375-c60d-a6e3-683b09e3d113",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "properties": [
+     {
+      "name": "name",
+      "value": "spacer",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "40",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "25cd6c23-b8cd-fed3-4679-89e61dcc04bf",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
+    "properties": [
+     {
+      "name": "name",
+      "value": "filesPanel",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "#ffffff",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "37b0f617-af3d-95ba-8256-66557d8c8294",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "statusPanel",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   }
+  ]
+ },
+ "components": {
+  "rows": [
+   {
+    "id": "GENERIC",
+    "name": "Generic",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Generic",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "174c0b90-580f-89e8-b175-d6c80b42cde5",
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "value": "targetUser",
+      "type": "Id"
+     },
+     {
+      "name": "propertyValue",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameterViewRole",
+      "value": "unused",
+      "type": "parameterViewRoleCustom"
+     },
+     {
+      "name": "bookmarkable",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ]
+   },
+   {
+    "id": "fa1f9d4d-3aea-6486-5133-055a13be2e7c",
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "value": "refreshParam",
+      "type": "Id"
+     },
+     {
+      "name": "propertyValue",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameterViewRole",
+      "value": "unused",
+      "type": "parameterViewRoleCustom"
+     },
+     {
+      "name": "bookmarkable",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ]
+   },
+   {
+    "id": "b2cbdf15-6538-f1c8-04d4-2a4645ff3948",
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "value": "rolesUsers",
+      "type": "Id"
+     },
+     {
+      "name": "propertyValue",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameterViewRole",
+      "value": "unused",
+      "type": "parameterViewRoleCustom"
+     },
+     {
+      "name": "bookmarkable",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ]
+   },
+   {
+    "id": "SELECTORS",
+    "name": "Selects",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Selects",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "b954afc0-0b6c-78ed-8ffc-9433747892ca",
+    "type": "ComponentsSelect",
+    "typeDesc": "Select Component",
+    "parent": "SELECTORS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "selectTargetUser",
+      "type": "Id"
+     },
+     {
+      "name": "parameter",
+      "value": "${p:targetUser}",
+      "type": "Parameter"
+     },
+     {
+      "name": "listeners",
+      "value": "[]",
+      "type": "Listeners"
+     },
+     {
+      "name": "parameters",
+      "value": "[[\"targetUser\",\"targetUser\"]]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "externalPlugin",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "valueAsId",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "dataSource",
+      "value": "allUsersDS",
+      "type": "Datasource"
+     },
+     {
+      "name": "valuesArray",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "htmlObject",
+      "value": "selectUserPanel",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "function f() {\n    $(\"#\" + this.htmlObject).prepend(\n        $(\"<label></label>\")\n            .text(Dashboards.i18nSupport.prop(\"user\") + \":\")\n            .css(\"display\", \"inline-block\")\n            .css(\"width\", \"100px\")\n    );\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "extraOptions",
+      "value": "[]",
+      "type": "OptionArray"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   },
+   {
+    "id": "OTHERCOMPONENTS",
+    "name": "Others",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Others",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "46a5b913-78e5-855f-03b4-78645aec08fd",
+    "type": "ComponentsQuery",
+    "typeDesc": "Query Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "rolesForUserQuery",
+      "type": "Id"
+     },
+     {
+      "name": "listeners",
+      "value": "['${p:targetUser}','${p:refreshParam}']",
+      "type": "Listeners"
+     },
+     {
+      "name": "parameters",
+      "value": "[[\"targetUser\",\"targetUser\"]]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "resultvar",
+      "value": "",
+      "type": "Result"
+     },
+     {
+      "name": "dataSource",
+      "value": "rolesForUserDS",
+      "type": "Datasource"
+     },
+     {
+      "name": "priority",
+      "value": "6",
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:rolesPanel}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "function f() {\n    $(\"#\" + this.htmlObject).prepend(\n        $(\"<label></label>\")\n            .text(Dashboards.i18nSupport.prop(\"roles\") + \":\")\n            .css(\"display\", \"inline-block\")\n            .css(\"width\", \"100px\")\n    );\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "function f(data) {\n    var roles = _.map(data.resultset, function f(e) { return e[1] });\n    $(\"#\" + this.htmlObject).text(roles.join(', '));\n    \n        Dashboards.fireChange(\"rolesUsers\", roles.join(','));\n\n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   },
+   {
+    "id": "3c1613cb-ddac-b7b0-a77e-9bf53988b004",
+    "type": "ComponentsTable",
+    "typeDesc": "table Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "filesForUserTable",
+      "type": "Id"
+     },
+     {
+      "name": "expandContainerObject",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "listeners",
+      "value": "['${p:targetUser}','${p:refreshParam}']",
+      "type": "Listeners"
+     },
+     {
+      "name": "oLanguage",
+      "value": "artifactCatalog.i18n() ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "language",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "colFormats",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colHeaders",
+      "value": "[\"Path\",\"Visible?\",\"Reason\",\"RID\"]",
+      "type": "Array"
+     },
+     {
+      "name": "colSortable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colTypes",
+      "value": "[\"string\",\"string\",\"string\",\"htmlifempty\"]",
+      "type": "colTypesCustom"
+     },
+     {
+      "name": "colWidths",
+      "value": "[\"80%\",\"10%\",\"10%\"]",
+      "type": "Array"
+     },
+     {
+      "name": "expandParameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "parameters",
+      "value": "[[\"targetUser\",\"targetUser\"]]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "displayLength",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "expandOnClick",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "filter",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "info",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "lengthChange",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "paginate",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "sort",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "colSearchable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "drawCallback",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "dataSource",
+      "value": "filesForUserDS",
+      "type": "Datasource"
+     },
+     {
+      "name": "sDom",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "sortBy",
+      "value": "[]",
+      "type": "SortByArray"
+     },
+     {
+      "name": "priority",
+      "value": "6",
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "paginationType",
+      "value": "two_button",
+      "type": "PaginationType"
+     },
+     {
+      "name": "tableStyle",
+      "value": "themeroller",
+      "type": "TableStyle"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:filesPanel}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "paginateServerside",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "function f() {\n    var myself = this;\n    \n    var divExtraFilters = $(\"<div></div>\")\n        .css(\"width\", \"30%\")\n        .css(\"line-height\", \"32px\")\n        .css(\"float\", \"left\")\n        .append(\n            $(\"<label></label>\")\n                .text(Dashboards.i18nSupport.prop(\"resource.onlyVisible\"))\n                .prepend(\n                    $(\"<input></input>\")\n                        .attr(\"type\", \"checkbox\")\n                        .change(function () {\n                            var dataTable = $(\"#\" + myself.htmlObject + \"Table\").dataTable();\n                            dataTable.fnFilter(this.checked ? \"true\" : \"\", 1);\n                        })\n                )\n                .css(\"margin-right\", \"10px\")\n        ).append(\n            $(\"<label></label>\")\n                .text(Dashboards.i18nSupport.prop(\"resource.onlyWithRID\"))\n                .prepend(\n                    $(\"<input></input>\")\n                        .attr(\"type\", \"checkbox\")\n                        .change(function () {\n                            var dataTable = $(\"#\" + myself.htmlObject + \"Table\").dataTable();\n                            dataTable.fnFilter(this.checked ? \"[0-9]\" : \"\", 3, true);\n                        })\n                )\n        );\n\n    $(\"#\" + this.htmlObject)\n        .find(\".dataTables_length\")\n        .css(\"width\", \"20%\")\n        .after(divExtraFilters);\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "extraOptions",
+      "value": "[]",
+      "type": "OptionArray"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     },
+     {
+      "name": "clickAction",
+      "value": "function f(ev) {\n\n    if (ev.category == 'path') {\n        var viewURL = artifactCatalog.getViewURL(ev.value);\n        window.open(viewURL);\n    }\n    else if (ev.category == 'resourceID') {\n        var editURL;\n        if (ev.value !== null) {\n            editURL = 'resourceform?resourceID=' + ev.value;\n        } else {\n            editURL = 'resourceform?url=' + ev.series;\n        }\n        window.open(editURL);\n    }\n    else if (ev.category == 'isVisible') {\n        artifactCatalog.runEndpoint('togglePermission', {\n        params: {\n            'fileName': ev.series,\n            'user': Dashboards.getParameterValue(\"targetUser\"),//targetUser,  //Dashboards.getParameterValue(\"targetRole\"), \n            'visible': ev.value,\n            'roles': Dashboards.getParameterValue(\"rolesUsers\"),//rolesUsers,\n        },\n          success: function (data) {\n            var statusHTML=\"\";\n\n            if(Dashboards.getParameterValue(\"targetUser\") == 'admin') {\n                statusHTML = Dashboards.i18nSupport.prop(\"error.cannot_revoke\");\n            } else {\n                if (data.resultset[0][0] !== '') {\n                    statusHTML = Dashboards.i18nSupport.prop(\"error.role_access\") + \": \"+ data.resultset[0];\n                }\n                else {\n                    // Generar mensaje de estado y actualizar tabla\n                    statusHTML = Dashboards.i18nSupport.prop(\"success.permissions\");\n\n                    var dataTable = ev.target.closest(\"table\").dataTable();\n                    var oldValue = ev.target.text();\n                    var newValue = oldValue === \"true\" ? \"false\" : \"true\";\n                    dataTable.fnUpdate(newValue, ev.rowIdx, ev.colIdx);\n                }\n            }\n            var statusPanel = $(\"#statusPanel\");\n            statusPanel.stop(true, true);\n            statusPanel.text(statusHTML).show().fadeOut(3000);\n        }\n    });\n    \n    }\n} ",
+      "type": "JavaScript"
+     }
+    ]
+   },
+   {
+    "id": "824dc889-1f3d-f907-555c-214b8238e880",
+    "type": "ComponentsbuttonComponent",
+    "typeDesc": "Button Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "refreshButton",
+      "type": "Id"
+     },
+     {
+      "name": "label",
+      "value": "Refresh",
+      "type": "String"
+     },
+     {
+      "name": "listeners",
+      "value": "[]",
+      "type": "Listeners"
+     },
+     {
+      "name": "actionParameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "expression",
+      "value": "function f() {\n    Dashboards.fireChange(\"refreshParam\", \"1\");\n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "failureCallback",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "successCallback",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "Datasource",
+      "value": "",
+      "type": "Datasource"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "buttonStyle",
+      "value": "themeroller",
+      "type": "TableStyle"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:refreshPanel}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "function () {\n    $(\"#refreshPanel button.ui-button span.ui-button-text\").text(Dashboards.i18nSupport.prop(\"refresh\"));\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   },
+   {
+    "id": "e388378e-2ad7-b091-0bc4-4ddaf7270877",
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "loadQueryParameters",
+      "type": "Id"
+     },
+     {
+      "name": "listeners",
+      "value": "[]",
+      "type": "Listeners"
+     },
+     {
+      "name": "expression",
+      "value": "function f() {\n    // user\n    var user = Dashboards.getQueryParameter(\"user\");\n    Dashboards.fireChange(\"targetUser\", user);\n    \n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "htmlObject",
+      "value": "",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   }
+  ]
+ },
+ "datasources": {
+  "rows": [
+   {
+    "id": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "name": "ARTIFACTCATALOG Endpoints",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "ARTIFACTCATALOG Endpoints",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "6537abd7-d9af-3438-8dea-ba39862aafd6",
+    "type": "ComponentsartifactCatalog_listusers_CPKENDPOINT",
+    "typeDesc": "listusers Endpoint",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "allUsersDS",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Inferred",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "artifactCatalog",
+    "meta_endpoint": "listusers"
+   },
+   {
+    "id": "6bc9b6f7-f2a4-9f27-626e-fa0ebcbfc317",
+    "type": "ComponentsartifactCatalog_listRolesForUser_CPKENDPOINT",
+    "typeDesc": "listRolesForUser Endpoint",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "rolesForUserDS",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Inferred",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "artifactCatalog",
+    "meta_endpoint": "listRolesForUser"
+   },
+   {
+    "id": "2642f1c0-e46a-3591-c2a1-74f01534954f",
+    "type": "ComponentsartifactCatalog_listFilesForUser_CPKENDPOINT",
+    "typeDesc": "listFilesForUser Endpoint",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "filesForUserDS",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Inferred",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "artifactCatalog",
+    "meta_endpoint": "listFilesForUser"
+   }
+  ]
+ },
+ "filename": "/system/artifactCatalog/dashboards/admin/userInformation.cdfde"
+}

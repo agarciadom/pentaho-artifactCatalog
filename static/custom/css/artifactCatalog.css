@@ -1,0 +1,387 @@
+/*
+ * PAGE COMPONENTS
+ */
+
+body {
+  background: #e8e5e0;
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+}
+
+.container {
+  width: 1000px;
+}
+
+/*
+  Originalmente generado con:
+
+  print "\n".join([".span-{0} {{width: {1}px;}}".format(i + 1, 34 + 42*i) for i in range(24)])
+
+  Posteriormente, span-6 se cambió a 250px y span-18 a 750px para que 6 + 18 dieran los 100px
+  de ancho del contenedor principal.
+*/
+.span-1 {width: 34px;}
+.span-2 {width: 76px;}
+.span-3 {width: 118px;}
+.span-4 {width: 160px;} /* keep in sync with other equal sizes (search for 160px!)*/
+.span-5 {width: 202px;}
+.span-6 {width: 250px;}
+.span-7 {width: 286px;}
+.span-8 {width: 328px;}
+.span-9 {width: 370px;}
+.span-10 {width: 412px;}
+.span-11 {width: 454px;}
+.span-12 {width: 496px;}
+.span-13 {width: 538px;}
+.span-14 {width: 580px;}
+.span-15 {width: 622px;}
+.span-16 {width: 664px;}
+.span-17 {width: 706px;}
+.span-18 {width: 749px;}
+.span-19 {width: 790px;}
+.span-20 {width: 832px;}
+.span-21 {width: 874px;}
+.span-22 {width: 916px;}
+.span-23 {width: 958px;}
+.span-24 {width: 1000px;margin-right:0;}
+
+#Header img {
+  padding-left: 30px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.subheader {
+  background: green;
+  padding: 20px 15px;
+}
+
+.subheader a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.8em;
+  text-decoration: none;
+}
+
+.subheader a:hover {
+  text-decoration: underline;
+}
+
+#Body {
+  position: relative;
+}
+
+#leftPanel {
+  padding: .5em 0;
+  margin-right: 0;
+}
+
+#rightPanel {
+  padding: 0;
+  margin: 0;
+}
+
+/* Creates a vertical border that separates left and right panel,
+   and is always as tall as the tallest column. */
+.verticalBorder {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 250px; /* keep in sync with span-6 */
+  background: #cecdcf;
+  width: 1px;
+  z-index: 1;
+}
+
+.footer {
+  font-size:.9em
+}
+
+.copyright {
+  margin:0;
+  padding:10px 0;
+  background:#b0aeae;
+  text-align:center;
+  color:#123645;
+}
+
+.currentSection {
+  padding: 1em;
+}
+
+.loggedIn {
+  padding: 1em;
+}
+
+/*
+ * WELCOME PAGE
+ */
+
+#welcomePanelHTML {
+  font-size: 110%;
+  text-align: justify;
+  padding: 1em;
+}
+
+#welcomePanel h2 {
+  text-align: center;
+}
+
+/*
+ * SECTION TABLES
+ */
+
+.firstStaticSection {
+  /* empty */
+}
+
+.staticSectionsTable {
+  margin-bottom: 0;
+}
+
+.sectionsTable thead {
+  display: none;
+}
+
+.sectionsTable tr, #sectionsPanelTable.sectionsTable tr {
+    background: none;
+}
+
+.sectionsTable td:hover, .sectionsTable a:hover, #sectionsPanelTable.sectionsTable td:hover {
+    text-decoration: underline;
+}
+
+.sectionsTable td, #sectionsPanelTable.sectionsTable td {
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #123645;
+    text-decoration: none;
+    padding: 9px 15px 8px;
+    border-bottom: 1px solid #cecdcf;
+    background: white;
+}
+
+.sectionsTable a {
+    cursor: pointer;
+    color: #123645;
+    text-decoration: none;
+}
+
+td.hiddenArtifact {
+    color: red;
+    font-weight: bold;
+}
+
+/*
+ * RESOURCES TABLE
+ */
+
+.resourcesTable thead {
+  display: none;
+}
+
+.resourcesTable table {
+  /* 
+     Needed in Firefox to make the table start
+     after the pagination and search controls.
+  */
+  clear: both;
+}
+
+.resourcesTable table tbody tr {
+  border-right: 1px solid #cecdcf;
+  border-bottom: 1px solid #cecdcf;
+
+  display: inline-block;
+  background: white;
+  width: 373px;
+  vertical-align: top;
+
+  /*
+    Dirty IE Hack: see
+    http://designshack.net/articles/css/whats-the-deal-with-display-inline-block/
+  */
+  zoom: 1;
+  *display: inline;
+}
+
+/* Evitamos que se alternen los colores para cada fila */
+.resourcesTable table tbody tr.odd {
+  background: white;
+}
+
+/* Artifact title */
+.resourcesTable td.resourceTitle, .resourcesTable td.background {
+  width:  373px;
+  margin:  0;
+  padding: 0;
+
+  text-align: center;
+  cursor: pointer;
+}
+
+.resourcesTable td.resourceTitle {
+  height: 45px;
+  vertical-align: middle;
+  background: #123645;
+  overflow: hidden;
+}
+
+.resourcesTable td.resourceTitle div {
+  font-weight: bold;
+  font-size: large;
+  color: white;
+  max-height: 45px;
+  text-decoration: underline;
+}
+
+.resourcesTable td.resourceTitle div:hover {
+  color: #dd7500; /* naranja corporativo UCA */
+}
+
+.resourcesTable td.background {
+  display: block;
+  height: 200px;
+  border-bottom: 1px black solid;
+
+  /* background is set by post-fetch */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#resourcesPanel .dataTables_length {
+  padding-left: 1em;
+}
+
+#resourcesPanel .dataTables_filter {
+  padding-right: 1em;
+}
+
+#resourcesPanel .dataTables_info, #resourcesPanel .dataTables_paginate {
+  padding: 1em;
+}
+
+/* Artifact description */
+
+.resourcesTable td.resourceDescription {
+  display: block;
+  height: 60px;
+  overflow-y: auto;
+}
+
+/* Artifact action buttons */
+
+.actionButtons {
+  text-align: center;
+}
+
+.viewArtifactButton {
+  background: url(../img/play.png);
+}
+
+.editArtifactButton {
+  background: url(../img/edit.png);
+}
+
+.editImplementationButton {
+  background: url(../img/edit-impl.png);
+}
+
+.deleteArtifactButton {
+  background: url(../img/delete.png);
+}
+
+.downloadArtifactButton {
+  background: url(../img/download.png);
+}
+
+.refreshResourcesButton {
+  background: url(../img/refresh.png);
+  vertical-align: middle;
+}
+
+.addResourceButton, .addSectionButton {
+  background: url(../img/add.png);
+  vertical-align: middle;
+}
+
+.viewArtifactButton, .editArtifactButton, .editImplementationButton,
+.deleteArtifactButton, .refreshResourcesButton, .addResourceButton, .addSectionButton,
+.downloadArtifactButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-repeat: none;
+  background-position: 0px 0px;
+}
+
+.viewArtifactButton:hover, .editArtifactButton:hover, .editImplementationButton:hover,
+.deleteArtifactButton:hover, .refreshResourcesButton:hover, .addResourceButton:hover, .addSectionButton:hover,
+.downloadArtifactButton:hover {
+  background-position: 32px 0px;
+}
+
+.resourceButton, .sectionButton {
+    display: none;
+}
+
+/* Artifact breadcrumbs */
+
+.breadcrumbs a:hover {
+    color: #dd7500; /* naranja corporativo UCA */
+    text-decoration: underline;
+}
+
+.breadcrumbs a {
+    cursor: pointer;
+    color: #123645;
+    text-decoration: none;
+}
+
+.breadcrumbs p {
+    border-bottom: 1px solid #cecdcf;
+    border-top: 1px solid #cecdcf;
+    padding-left: .5em;
+}
+
+
+/*
+  EDIT RESOURCE FORM
+*/
+
+.fullWidthFields textarea, .fullWidthFields input {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	    width: 100%;
+}
+
+.singleCheckbox ul {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.singleCheckbox li {
+  display: inline;
+}
+
+/*
+  OUTDATED BROWSER MESSAGE
+*/
+
+.outdatedBrowser {
+  display: none;
+  background-color: #ffe2e1;
+  padding: 12px;
+}
+
+/*
+  CFR
+*/
+
+.fileSelect { background: none; }
+
+/* Fix for search box going beyond its parent div */
+#resourcesPanelTable_filter input[type=search] {
+  width: 70%;
+}

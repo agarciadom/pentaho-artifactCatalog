@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf><title>Add/update section</title><description>Adds or updates a section, based on the 'sectionID' query parameter.</description><author></author><style>Clean</style><rendererType>blueprint</rendererType><widget>false</widget><widgetName></widgetName><widgetParameters></widgetParameters></cdf>
