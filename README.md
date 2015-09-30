@@ -7,6 +7,8 @@ Sections are hierarchical tags, such as "Invoices" or "Sales", that can be optio
 
 To see CAC in action, check the screencasts available on [YouTube](https://www.youtube.com/playlist?list=PL7XShKQaDPA1dKLiiYuOULn9mUaZk4u4C).
 
+The development of this plugin has been funded through the research project "Data quality improvement and business intelligence platform for decision support" ("Mejora de la calidad de los datos y sistema de inteligencia empresarial para la toma de decisiones", 2013-031/PV/UCA-G/PR) of the University of Cádiz.
+
 Assumptions
 --
 
