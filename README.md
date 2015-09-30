@@ -1,11 +1,9 @@
 Curated Artifact Catalog
 ===
 
-This Sparkl plugin provides a dashboard showing users what resources they can currently view, in a more accesible way. Instead of a tree of folders and files, the content is divided into sections and resources.
+This Pentaho plugin provides a dashboard showing users what resources they can currently view, in a more accesible way. Instead of a tree of folders and files, the content is divided into sections and resources.
 
-Sections are hierarchical tags, such as "Invoices" or "Sales", that can be optionally limited to certain roles and nested inside each other. Resources are extended descriptions of existing reports or dashboards, which are listed according to the ACL rules in Pentaho.
-
-A resource can belong to zero or more sections, and sections can be nested. A report or a dashboard can only be described in one resource.
+Sections are hierarchical tags, such as "Invoices" or "Sales", that can be optionally limited to certain roles and nested inside each other. Resources are extended descriptions of existing reports or dashboards, which are listed according to the ACL rules in Pentaho. A resource can belong to zero or more sections, and a report or a dashboard can only be described in one resource.
 
 To see CAC in action, check the screencasts available on [YouTube](https://www.youtube.com/playlist?list=PL7XShKQaDPA1dKLiiYuOULn9mUaZk4u4C).
 
@@ -37,7 +35,7 @@ Installation
 
 5. Copy `config.yaml.template` to `config.yaml` and customise it: specify the JNDI name of the JDBC data source in `jndi`, check the URL components for the Pentaho REST API and fine-tune the regular expressions for including and excluding artifacts for the admin-only section and resource forms.  `cfrUploadDirectory` should be set to the absolute path to the directory where CFR stores its uploads: this usually should be the `.cfr` subfolder of your `pentaho-solutions/system` directory.
 
-   If you want to use a separate web server to host your images, instead of CFR, you will need to customize `imagesDirectory` and `imagesBaseURL`. These should be set to the absolute path and base URL of the directory from which you will serve the static images.  `cfrGrantRead` should be set to `false` in this scenario.
+   If you want to use a separate web server to host your images, instead of CFR, you will need to customize `imagesDirectory` and `imagesBaseURL`. These should be set to the absolute path and base URL of the directory from which you will serve the static images.  `cfrGrantRead` should be set to `false` in this scenario. Make sure that the user running Pentaho has write rights on `imagesDirectory`.
 
    If you need to change your `baseURI`, make sure that you set `myself.apiPrefix` to the same value in `static/custom/js/artifactCatalog.js`!
 
@@ -64,6 +62,8 @@ Installation
           </value>
         </property>
 
-8. As an admin, go to _Tools < ArtifactCatalog_ and run the main `artifactcatalog` dashboard. This dashboard is also available to end users at the same URL. However, the edit buttons, dashboards and Kettle endpoints are limited to administrators.
+8. As an admin, go to _Tools > ArtifactCatalog_ and run the main `artifactcatalog` dashboard. This dashboard is also available to end users at the same URL. However, the edit buttons, dashboards and Kettle endpoints are limited to administrators.
 
 9. Customize `dashboards/*.properties` to provide your own welcome text and title for the catalog, and replace `static/custom/img/logo.png` with your company logo (default size is 64 x 64 pixels). For changing the colors of the page, `static/custom/css/artifactCatalog.css` should be customized.
+
+  _Note_: you may need to clean the `.properties` cache in CDF for these changes to be effective, by deleting the `pentaho-solutions/system/pentaho-cdf-dd/tmp/.cache/system/artifactCatalog` directory.
