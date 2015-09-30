@@ -30,10 +30,10 @@ Installation
 
 4. Create the PostgreSQL database in `database/postgres9-ddl.sql` and add it as a JDBC data source in Pentaho, noting down its name. This database stores the sections and resources created through the admin-only endpoints. On Ubuntu 15.04, these commands can be used:
 
-      sudo -u postgres createuser -P artcat
-      sudo -u postgres createdb -O artcat artifact_catalog
-      sudo -u postgres psql -h localhost \
-        artifact_catalog artcat < database/postgres9-ddl.sql
+        sudo -u postgres createuser -P artcat
+        sudo -u postgres createdb -O artcat artifact_catalog
+        sudo -u postgres psql -h localhost \
+          artifact_catalog artcat < database/postgres9-ddl.sql
 
 5. Copy `config.yaml.template` to `config.yaml` and customise it: specify the JNDI name of the JDBC data source in `jndi`, check the URL components for the Pentaho REST API and fine-tune the regular expressions for including and excluding artifacts for the admin-only section and resource forms.  `cfrUploadDirectory` should be set to the absolute path to the directory where CFR stores its uploads: this usually should be the `.cfr` subfolder of your `pentaho-solutions/system` directory.
 
