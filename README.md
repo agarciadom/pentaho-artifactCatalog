@@ -14,7 +14,7 @@ Assumptions
 
 The plugin assumes that admin users have the Administrator role and logged-in users have the Authenticated role, as in the default Pentaho setup. This is currently not configurable, sorry!
 
-This plugin has been tested with Pentaho 5.4.0.1 CE.
+This plugin has been tested with Pentaho 5.4.0.1 CE, using the built-in HSQLDB (SampleData) and PostgreSQL 9.x.
 
 Installation
 --
@@ -28,16 +28,13 @@ Installation
 
 3. Install the `mogrify` tool into some directory in your `PATH`. This tool is used to resize uploaded images into the 375x200px size expected by the UI. In most Linux distributions, this tool is bundled into the `imagemagick` package, and in Mac OS X it is available through MacPorts as `ImageMagick`. There are also binary releases for [Windows](http://www.imagemagick.org/script/binary-releases.php#windows).
 
-4. Create the PostgreSQL database in `database/postgres9-ddl.sql` and add it as a JDBC data source in Pentaho, noting down its name. This database stores the sections and resources created through the admin-only endpoints. On Ubuntu 15.04, these commands can be used:
+4. Copy `config.yaml.template` to `config.yaml`, and customize it.
 
-        sudo -u postgres createuser -P artcat
-        sudo -u postgres createdb -O artcat artifact_catalog
-        sudo -u postgres psql -h localhost \
-          artifact_catalog artcat < database/postgres9-ddl.sql
+  By default, the plugin uses the "SampleData" HSQLDB database that comes with Pentaho. To use it, make sure you edit the SampleData data source within the Pentaho User Console and change the user to `pentaho_admin` (as the default `pentaho_user` does not have DBA rights on it). If you'd like to use a different database, edit `config.yaml` and change `jndi` to the name of the Pentaho data source to be used and `ddlFile` to the appropriate file within the `database` directory. Make sure that the user used in the connection has the ability to create tables in the database, and the plugin will take care of the rest.
 
-5. Copy `config.yaml.template` to `config.yaml` and customise it: specify the JNDI name of the JDBC data source in `jndi`, check the URL components for the Pentaho REST API and fine-tune the regular expressions for including and excluding artifacts for the admin-only section and resource forms.  `cfrUploadDirectory` should be set to the absolute path to the directory where CFR stores its uploads: this usually should be the `.cfr` subfolder of your `pentaho-solutions/system` directory.
+  Check the URL components for the Pentaho REST API and fine-tune the regular expressions for including and excluding artifacts for the admin-only section and resource forms.  `cfrUploadDirectory` should be set to the absolute path to the directory where CFR stores its uploads: this usually should be the `.cfr` subfolder of your `pentaho-solutions/system` directory.
 
-   If you want to use a separate web server to host your images, instead of CFR, you will need to customize `imagesDirectory` and `imagesBaseURL`. These should be set to the absolute path and base URL of the directory from which you will serve the static images.  `cfrGrantRead` should be set to `false` in this scenario. Make sure that the user running Pentaho has write rights on `imagesDirectory`.
+   If you want to use a separate web server to host your images instead of CFR, you will need to customize `imagesDirectory` and `imagesBaseURL`. These should be set to the absolute path and base URL of the directory from which you will serve the static images.  `cfrGrantRead` should be set to `false` in this scenario. Make sure that the user running Pentaho has write rights on `imagesDirectory`.
 
    If you need to change your `baseURI`, make sure that you set `myself.apiPrefix` to the same value in `static/custom/js/artifactCatalog.js`!
 
