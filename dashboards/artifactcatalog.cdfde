@@ -1,80 +1,1233 @@
 {
+ "components": {
+  "rows": [
+   {
+    "id": "OTHERCOMPONENTS",
+    "name": "Others",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "type": "Label",
+      "value": "Others"
+     }
+    ],
+    "type": "Label",
+    "typeDesc": "<i>Group</i>"
+   },
+   {
+    "id": "393c3efc-0807-6e56-ef29-17f85e5cba20",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "resourcesTable"
+     },
+     {
+      "name": "expandContainerObject",
+      "type": "String",
+      "value": ""
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "['${p:refreshParam}','${p:sectionStack}']"
+     },
+     {
+      "name": "oLanguage",
+      "type": "JavaScript",
+      "value": "artifactCatalog.i18n() "
+     },
+     {
+      "name": "language",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "colFormats",
+      "type": "Array",
+      "value": "[]"
+     },
+     {
+      "name": "colHeaders",
+      "type": "Array",
+      "value": "[\"id\",\"title\",\"image_url\",\"html_description\",\"visible\",\"jcr_path\",\"isSection\",\"n_sections\",\"n_resources\",\"action_buttons\"]"
+     },
+     {
+      "name": "colSortable",
+      "type": "Array",
+      "value": "[]"
+     },
+     {
+      "name": "colTypes",
+      "type": "colTypesCustom",
+      "value": "[\"hidden\",\"string\",\"background\",\"condclass\",\"hidden\",\"hidden\",\"string\",\"hidden\",\"hidden\",\"actionButtons\"]"
+     },
+     {
+      "name": "colWidths",
+      "type": "Array",
+      "value": "[]"
+     },
+     {
+      "name": "expandParameters",
+      "type": "ValuesArray",
+      "value": "[]"
+     },
+     {
+      "name": "parameters",
+      "type": "ValuesArray",
+      "value": "[[\"sectionStack\",\"sectionStack\"]]"
+     },
+     {
+      "name": "displayLength",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "expandOnClick",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "filter",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "info",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "lengthChange",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "paginate",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "sort",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "colSearchable",
+      "type": "Array",
+      "value": "[]"
+     },
+     {
+      "name": "drawCallback",
+      "type": "JavaScript",
+      "value": "function f(settings) {\n    var $table = $(settings.nTable);\n    $table.find(\"td.column1\").addClass(\"resourceTitle\");\n    $table.find(\"td.column3\").addClass(\"resourceDescription\");\n} "
+     },
+     {
+      "name": "dataSource",
+      "type": "Datasource",
+      "value": "listResourcesSubsections"
+     },
+     {
+      "name": "sDom",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "sortBy",
+      "type": "SortByArray",
+      "value": "[[\"1\",\"ASC\"]]"
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "paginationType",
+      "type": "PaginationType",
+      "value": "two_button"
+     },
+     {
+      "name": "tableStyle",
+      "type": "TableStyle",
+      "value": "classic"
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:resourcesPanel}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "paginateServerside",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": "function f() {\n    var resourceButtonList = [], sectionButtonList = [];\n    if (artifactCatalog.userIsAdmin()) {\n        resourceButtonList = resourceButtonList.concat([\n            {\n                cssClass: \"editArtifactButton resourceButton sectionButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.editDescription\"),\n                action: function(v, st) {\n                    if (v.is_section) {\n                        window.open(artifactCatalog.getEndpointURL('sectionform') + '?sectionID=' + v.id);\n                    } else {\n                        window.open(artifactCatalog.getEndpointURL('resourceform') + '?resourceID=' + v.id);\n                    }\n                }\n            },\n            {\n                cssClass: \"editImplementationButton resourceButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.editImplementation\"),\n                action: function(v, st) {\n                    var url = artifactCatalog.getEditURL(v.path);\n                    if (url) {\n                        window.open(url);\n                    } else {\n                        alert(Dashboards.i18nSupport.prop(\"resource.noEditURL\").format(v.path));\n                    }\n                    \n                }\n            },\n            {\n                cssClass: \"downloadArtifactButton resourceButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.download\"),\n                action: function(v, st) {\n                    var url = artifactCatalog.getEndpointURL('downloadResource') + \"?parampath=\" + v.path;\n                    window.open(url);\n                }\n            },\n            {\n                cssClass: \"deleteArtifactButton resourceButton sectionButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.delete\"),\n                action: function(v, st) {\n                    var confirmMessage, successMessage, errorMessage, endpoint, parameters;\n                    if (v.is_section) {\n                        endpoint = 'deletesection';\n                        parameters = {sectionID: v.id};\n                        successMessage = Dashboards.i18nSupport.prop(\"section.delete.success\").format(v.id);\n                        errorMessage = Dashboards.i18nSupport.prop(\"section.delete.failure\").format(v.id);\n                        if (v.n_sections > 0 && v.n_resources > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSectionsResources\").format(v.id, v.n_sections, v.n_resources);\n                        } else if (v.n_sections > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSections\").format(v.id, v.n_sections);\n                        } else if (v.n_resources > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasResources\").format(v.id, v.n_resources);\n                        } else {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasNothing\").format(v.id);\n                        }\n                    } else {\n                        endpoint = 'deleteresource';\n                        parameters = {resourceID: v.id};\n                        successMessage = Dashboards.i18nSupport.prop(\"resource.delete.success\").format(v.id);\n                        errorMessage = Dashboards.i18nSupport.prop(\"resource.delete.failure\").format(v.id);\n                        if (v.n_sections > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"resource.delete.hasSections\").format(v.id, v.n_sections);\n                        } else {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"resource.delete.hasNothing\").format(v.id);\n                        }\n                    }\n                    if (window.confirm(confirmMessage)) {\n                        artifactCatalog.runEndpoint(endpoint, {\n                            params: parameters,\n                            success: function (data) {\n                                if (data.resultset.length > 0) {\n                                    alert(successMessage);\n                                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                                } else {\n                                    alert(errorMessage);\n                                }\n                            }\n                        });\n                    }\n                }\n            },\n        ]);\n    }\n\n    this.setAddInOptions(\n        \"colType\",\n        \"condclass\",\n        {condition: function(t, st) {\n            var sVisible = st.tableData[st.rowIdx][4];\n            if (sVisible !== true) {\n                return \"hiddenArtifact\";\n            }\n        }}\n    );\n\n    this.setAddInOptions(\n        \"colType\",\n        \"condstyles\",\n        {condition: function(t, st) {\n            var image_url = st.tableData[st.rowIdx][2];\n            if (image_url) {\n                return {\"background-image\": \"url(\" + encodeURI(image_url) + \")\"};\n            }\n        }}\n    );\n\n    this.setAddInOptions(\n       \"colType\",\n       \"actionButtons\",\n       {buttons: resourceButtonList}\n    );\n} "
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": "function f() {\n    var $thisObj = $(\"#\" + this.htmlObject);\n    var lengthObj = $thisObj.find(\".dataTables_length\");\n    var filterObj = $thisObj.find(\".dataTables_filter\");\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    // If the user is an admin, place the 'Add resource' button\n    if (artifactCatalog.userIsAdmin()) {\n        if(stack.length) {\n            lengthObj.append($(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"resource.add\"))\n                .addClass(\"addResourceButton\")\n                .click(function () {\n                    var sectionID = parseInt(stack[stack.length-1][0]);\n    \n                    var url = artifactCatalog.getEndpointURL(\"resourceform\");\n                    if (sectionID != -1) {\n                        url = url + \"?sectionID=\" + sectionID;\n                    }\n                    window.open(url);\n                })\n            );\n        }\n    } else {\n        $thisObj.find(\".column6\").css(\"display\", \"none\");\n    }\n\n    // Make space for the object type combo box\n    lengthObj.css(\"width\", \"30%\");\n    filterObj.css(\"width\", \"30%\");\n\n    // Add the object type combo box (using client-based DataTables filtering)\n    var myself = this;\n    lengthObj.after(\n        $(\"<div></div>\")\n            .css(\"width\", \"30%\")\n            .css(\"float\", \"left\")\n            .append($(\"<label></label>\").text(Dashboards.i18nSupport.prop(\"resource.type\")+\":\"))\n            .append($(\"<select></select>\")\n                .append($(\"<option>\").val(\"\").text(Dashboards.i18nSupport.prop(\"resource.type.all\")))\n                .append($(\"<option>\").val(\"[.].cdf$\").text(Dashboards.i18nSupport.prop(\"resource.type.dashboard\")))\n                .append($(\"<option>\").val(\"[.]prpt$\").text(Dashboards.i18nSupport.prop(\"resource.type.report\")))\n                .change(function f() {\n                    var dataTable = $(\"#\" + myself.htmlObject).find(\"table\").dataTable();\n                    dataTable.fnFilter(this.value, 5, true, false);\n                })\n            )\n    );\n\n    $thisObj.find(\".column6:contains('\" + Dashboards.i18nSupport.prop('section') + \"') + .column9 .sectionButton\").css(\"display\", \"inline-block\");\n    $thisObj.find(\".column6:contains('\" + Dashboards.i18nSupport.prop('resource') + \"') + .column9 .resourceButton\").css(\"display\", \"inline-block\");\n} "
+     },
+     {
+      "name": "postFetch",
+      "type": "JavaScript",
+      "value": "function f(data) {\n    function swap(arr, i, j) {\n        var tmp = arr[i];\n        arr[i] = arr[j];\n        arr[j] = tmp;\n    }\n\n    // Add action buttons column\n    data.metadata.push({\n        colIndex: data.metadata.length,\n        colName: \"action_buttons\", colType: \"String\"\n    });\n    // Swap the image_url and jcr_path metadata fields\n    swap(data.metadata, 2, 5);\n    \n    _.each(data.resultset, function(e) {\n        // Wrap the title in a <div>\n        e[1] = '<div>' + e[1] + '</div>';\n        swap(e, 2, 5);\n\n        e.push({id: e[0], path: e[5], is_section: e[6], n_sections: e[7], n_resources: e[8]});\n        e[6] = Dashboards.i18nSupport.prop(e[6] ? 'section' : 'resource');\n    });\n    return data;\n} "
+     },
+     {
+      "name": "preChange",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postChange",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "extraOptions",
+      "type": "OptionArray",
+      "value": "[]"
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     },
+     {
+      "name": "clickAction",
+      "type": "JavaScript",
+      "value": "function f(ev) {\n    if (\"title\" != ev.category && \"image_url\" != ev.category) { return; }\n    var isSection = ev.tableData[ev.rowIdx][6] == Dashboards.i18nSupport.prop('section');\n\n    if (isSection) {\n        var sectionId = ev.tableData[ev.rowIdx][0];\n        var sectionName = ev.tableData[ev.rowIdx][1].replace(\"<div>\", \"\").replace(\"</div>\", \"\");\n        var stack = Dashboards.getParameterValue(\"sectionStack\");\n        var currentSectionId = parseInt(stack[stack.length-1] || 0);\n\n        if (sectionId != currentSectionId) {\n            switchSection(sectionId, sectionName);\n        }\n    } else {\n        var path = ev.tableData[ev.rowIdx][5];\n        var viewURL = artifactCatalog.getViewURL(path);\n        window.open(viewURL);\n    }\n}\n "
+     }
+    ],
+    "type": "ComponentsTable",
+    "typeDesc": "table Component"
+   },
+   {
+    "id": "5904e2f4-c345-5f6c-525e-62391d903ef3",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "sectionsTable"
+     },
+     {
+      "name": "expandContainerObject",
+      "type": "String",
+      "value": ""
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "['${p:refreshParam}','${p:sectionStack}']"
+     },
+     {
+      "name": "oLanguage",
+      "type": "JavaScript",
+      "value": "artifactCatalog.i18nSections() "
+     },
+     {
+      "name": "language",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "colFormats",
+      "type": "Array",
+      "value": "[]"
+     },
+     {
+      "name": "colHeaders",
+      "type": "Array",
+      "value": "[\"id\",\"Section\",\"Visible?\",\"image_url\",\"html_description\",\"n_children\",\"n_resources\",\"Buttons\"]"
+     },
+     {
+      "name": "colSortable",
+      "type": "Array",
+      "value": "[\"title\"]"
+     },
+     {
+      "name": "colTypes",
+      "type": "colTypesCustom",
+      "value": "[\"hidden\",\"condclass\",\"hidden\",\"hidden\",\"hidden\",\"hidden\",\"hidden\",\"actionButtons\"]"
+     },
+     {
+      "name": "colWidths",
+      "type": "Array",
+      "value": "[\"0\",\"90%\",\"0\",\"0\",\"0\",\"10%\"]"
+     },
+     {
+      "name": "expandParameters",
+      "type": "ValuesArray",
+      "value": "[]"
+     },
+     {
+      "name": "parameters",
+      "type": "ValuesArray",
+      "value": "[[\"sectionStack\",\"sectionStack\"]]"
+     },
+     {
+      "name": "displayLength",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "expandOnClick",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "filter",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "info",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "lengthChange",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "paginate",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "sort",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "colSearchable",
+      "type": "Array",
+      "value": "[\"title\"]"
+     },
+     {
+      "name": "drawCallback",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "dataSource",
+      "type": "Datasource",
+      "value": "listChildSections"
+     },
+     {
+      "name": "sDom",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "sortBy",
+      "type": "SortByArray",
+      "value": "[]"
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": "5"
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "paginationType",
+      "type": "PaginationType",
+      "value": "two_button"
+     },
+     {
+      "name": "tableStyle",
+      "type": "TableStyle",
+      "value": "classic"
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:sectionsPanel}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "paginateServerside",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": "function f() {\n    var buttonList = [];\n    if (artifactCatalog.userIsAdmin()) {\n        buttonList = buttonList.concat([\n            {\n                cssClass: \"editArtifactButton\",\n                title: \" \",\n                tooltip: \"Edit\",\n                action: function(v, st) {\n                    debugger;\n                    window.open(artifactCatalog.getEndpointURL('sectionform') + '?sectionID=' + v.id);\n                }\n            },\n            {\n                cssClass: \"deleteArtifactButton\",\n                title: \" \",\n                tooltip: \"Delete\",\n                action: function(v, st) {\n                    endpoint = 'deletesection';\n                    parameters = {sectionID: v.id};\n                    successMessage = Dashboards.i18nSupport.prop(\"section.delete.success\").format(v.id);\n                    errorMessage = Dashboards.i18nSupport.prop(\"section.delete.failure\").format(v.id);\n                    if (v.n_sections > 0 && v.n_resources > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSectionsResources\").format(v.id, v.n_sections, v.n_resources);\n                    } else if (v.n_sections > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSections\").format(v.id, v.n_sections);\n                    } else if (v.n_resources > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasResources\").format(v.id, v.n_resources);\n                    } else {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasNothing\").format(v.id);\n                    }\n                    if (window.confirm(confirmMessage)) {\n                        artifactCatalog.runEndpoint(endpoint, {\n                            params: parameters,\n                            success: function (data) {\n                                if (data.resultset.length > 0) {\n                                    alert(successMessage);\n                                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                                } else {\n                                    alert(errorMessage);\n                                }\n                            }\n                        });\n                    }\n                }\n            },\n        ]);\n    }\n    this.setAddInOptions(\n        \"colType\",\n        \"condclass\",\n        {condition: function(t, st) {\n            var sVisible = st.tableData[st.rowIdx][2];\n            if (sVisible !== true) {\n                return \"hiddenArtifact\";\n            }\n        }}\n    );\n    this.setAddInOptions(\n       \"colType\",\n       \"actionButtons\",\n       {buttons: buttonList}\n    );\n} "
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": "function f() {\n    var sectionTable = $(\"#sectionsPanel .dataTables_wrapper\");\n    sectionTable.find(\"table\").addClass(\"sectionsTable\");\n\n    if (artifactCatalog.userIsAdmin()) {\n        sectionTable.append(\n            $(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"refresh\"))\n                .addClass(\"refreshResourcesButton\")\n                .click(function () {\n                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                })\n        ).append(\n            $(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"section.add\"))\n                .addClass(\"addSectionButton\")\n                .click(function () {\n                    window.open(artifactCatalog.getEndpointURL(\"sectionform\"));\n                })\n        );\n    }\n} "
+     },
+     {
+      "name": "postFetch",
+      "type": "JavaScript",
+      "value": "function f(data) {\n    // Add action buttons column\n    data.metadata.push({colIndex: data.metadata.length, colName: \"action_buttons\", colType: \"String\"});\n    _.each(data.resultset, function(e) {\n        // Add the ID to the button column, for its use from the callback\n        e.push({id: e[0], path: e[2], n_sections: e[5], n_resources: e[6]});\n    });\n    return data;\n}\n "
+     },
+     {
+      "name": "preChange",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postChange",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "extraOptions",
+      "type": "OptionArray",
+      "value": "[]"
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     },
+     {
+      "name": "clickAction",
+      "type": "JavaScript",
+      "value": "function f(ev) {\n    if (\"title\" != ev.category) { return; }\n\n    var sectionId = parseInt(ev.tableData[ev.rowIdx][0]);\n    var sectionName = ev.tableData[ev.rowIdx][1];\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    var currentSectionId = parseInt(stack[stack.length-1] || 0);\n\n    if (sectionId != currentSectionId) {\n        switchSection(sectionId, sectionName);\n    }\n    \n} "
+     }
+    ],
+    "type": "ComponentsTable",
+    "typeDesc": "table Component"
+   },
+   {
+    "id": "33aae211-6dd8-c5e0-3880-1facc3ed00a1",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "LoggedInText"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function f() {\n    var logout = Dashboards.i18nSupport.prop('logout'),\n        user = Dashboards.i18nSupport.prop('user');\n    // Current user\n    var text = \"<div>\" + user + \n    \": <em>\" + Dashboards.context.user + \"</em>.</div>\";\n\n    // Add logout URL (setting the logout success URL to this same page)\n    var logoutURL = \"/pentaho/Logout?logoutSuccessUrl=\" + encodeURI(window.location);\n    text += \"<div><a href=\\\"\" + logoutURL + \"\\\">(\" + logout + \n    \")</a></div>\";\n\n    return text;\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:LoggedInPanel}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "ab3a2bd4-9712-480a-3be9-665f33b3585e",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "StaticSections"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function() {\n    var home = Dashboards.i18nSupport.prop('menu.home');\n    var fullList = Dashboards.i18nSupport.prop('menu.fullList');\n    \n    var text = '<table class=\"sectionsTable staticSectionsTable\">'+\n    '<tbody>'+\n    '   <tr><td class=\"firstStaticSection\"><a href=\"#\" onClick=\"switchSection(null, \\'' + home + '\\'); return false;\">' + home + '</a></td></tr>' +\n    '<tr><td><a href=\"#\" onClick=\"allResources(); return false;\">' + fullList + '</a></td></tr>'+\n    '</tbody></table>';\n    return text;\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": "5"
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "staticSectionsPanel"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "8d1b2016-69ae-55e0-c757-c0e8a77c0fc5",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "CurrentSection"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function f() {\n    var home = Dashboards.i18nSupport.prop('menu.home');\n        \n    return \"<h2>\" + home + \"</h2>\";\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:currentSectionPanel}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "3fd7d672-f0fe-fe08-bc39-676d9fc81f9e",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "Title"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function () {\n    var title = Dashboards.i18nSupport.prop(\"artifactCatalog.title\");\n    var text = '<div class=\"subheader\"><a href=\"artifactcatalog\">' + title + '</a></div>'; \n    return text;\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:PluginTitle}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "e789ca53-ef01-0eca-e32e-da8d29c46c34",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "WelcomeText"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function() {\n    var text = Dashboards.i18nSupport.prop('main.welcome')\n      + Dashboards.i18nSupport.prop('main.help1')\n      + Dashboards.i18nSupport.prop('main.help2');\n\n    return text;    \n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:welcomePanelHTML}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "1daf0b15-0e3c-0bd3-03eb-ac576f0e265b",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "OutdatedBrowserText"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function () {\n    var text = Dashboards.i18nSupport.prop('error.browser1') + Dashboards.i18nSupport.prop('error.browser2') + Dashboards.i18nSupport.prop('error.browser3');\n    \n    return text;\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:OutdatedBrowser}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "6cdb2603-5a7d-fef6-ee70-af86ee417e91",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "Copyright"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "[]"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function () {\n    return Dashboards.i18nSupport.prop('copyright');\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": 5
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:Footer}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "78d933bc-dfee-e99a-77c9-634b8dd1cee0",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "GoUpOption"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "['${p:sectionStack}']"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function() {\n    var goUp = Dashboards.i18nSupport.prop('menu.goUp');\n    var stack = Dashboards.getParameterValue('sectionStack');\n        \n    if(stack.length > 0) {\n        var text = '<table class=\"sectionsTable staticSectionsTable\">'+\n        '<tbody>'+\n        '   <tr><td><a href=\"#\" onClick=\"goUp(); return false;\">' + goUp + '</a></td></tr>'+\n        '</tbody></table>';\n        return text;\n    } else {\n        return '';\n    }\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": "10"
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:goUpPanel}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "4c551175-9346-70e1-2f32-128ac0485409",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "BreadcrumbsMenu"
+     },
+     {
+      "name": "listeners",
+      "type": "Listeners",
+      "value": "['${p:sectionStack}']"
+     },
+     {
+      "name": "expression",
+      "type": "JavaScript",
+      "value": "function f() {\n    var sections = Dashboards.getParameterValue(\"sectionStack\");\n    var home = Dashboards.i18nSupport.prop('menu.home');\n    var breadcrumbs = '<p>\\t<a href=\"#\" onclick=\"switchSection(null, \\'' + home + '\\');\">' + home + '</a>';\n\n    if (sections.length > 0) {\n        for(var i=0; i < sections.length; i++) {\n            breadcrumbs += \" > \" + '<a href=\"#\" onclick=\"switchSection(' + sections[i][0] + ', \\'' + sections[i][1] + '\\');\">' + sections[i][1]  + '</a>';\n        }\n        breadcrumbs += '</p>'\n        return breadcrumbs;\n    } else\n        return '';\n} "
+     },
+     {
+      "name": "priority",
+      "type": "Integer",
+      "value": "10"
+     },
+     {
+      "name": "refreshPeriod",
+      "type": "Integer",
+      "value": ""
+     },
+     {
+      "name": "htmlObject",
+      "type": "HtmlObject",
+      "value": "${p:breadcrumbs}"
+     },
+     {
+      "name": "executeAtStart",
+      "type": "Boolean",
+      "value": "true"
+     },
+     {
+      "name": "preExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "postExecution",
+      "type": "JavaScript",
+      "value": ""
+     },
+     {
+      "name": "tooltip",
+      "type": "Html",
+      "value": ""
+     }
+    ],
+    "type": "ComponentstextComponent",
+    "typeDesc": "Text Component"
+   },
+   {
+    "id": "GENERIC",
+    "name": "Generic",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "type": "Label",
+      "value": "Generic"
+     }
+    ],
+    "type": "Label",
+    "typeDesc": "<i>Group</i>"
+   },
+   {
+    "id": "608045f2-b99a-1cda-985a-b825337fef77",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "resourceIdParam"
+     },
+     {
+      "name": "propertyValue",
+      "type": "String",
+      "value": ""
+     },
+     {
+      "name": "parameterViewRole",
+      "type": "parameterViewRoleCustom",
+      "value": "unused"
+     },
+     {
+      "name": "bookmarkable",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "public",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ],
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter"
+   },
+   {
+    "id": "72907e70-1861-4702-7c8e-a79a5a14dc4f",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "refreshParam"
+     },
+     {
+      "name": "propertyValue",
+      "type": "String",
+      "value": ""
+     },
+     {
+      "name": "parameterViewRole",
+      "type": "parameterViewRoleCustom",
+      "value": "unused"
+     },
+     {
+      "name": "bookmarkable",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "public",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ],
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter"
+   },
+   {
+    "id": "c8c769cd-29a8-7e28-f0c5-00d189530dad",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "sectionStack"
+     },
+     {
+      "name": "javaScript",
+      "type": "JavaScript",
+      "value": "sectionStack = []; "
+     },
+     {
+      "name": "parameterViewRole",
+      "type": "parameterViewRoleCustom",
+      "value": "unused"
+     },
+     {
+      "name": "bookmarkable",
+      "type": "Boolean",
+      "value": "false"
+     },
+     {
+      "name": "public",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ],
+    "type": "ComponentsJavascriptParameter",
+    "typeDesc": "Custom parameter"
+   }
+  ]
+ },
+ "datasources": {
+  "rows": [
+   {
+    "id": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "name": "ARTIFACTCATALOG Endpoints",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "type": "Label",
+      "value": "ARTIFACTCATALOG Endpoints"
+     }
+    ],
+    "type": "Label",
+    "typeDesc": "<i>Group</i>"
+   },
+   {
+    "id": "459dfa97-e79f-221d-3892-f6d5a97a520c",
+    "meta": "CPK",
+    "meta_endpoint": "listChildSections",
+    "meta_pluginId": "artifactCatalog",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "listChildSections"
+     },
+     {
+      "name": "stepName",
+      "type": "String",
+      "value": "OUTPUT"
+     },
+     {
+      "name": "kettleOutput",
+      "type": "kettleOutputCustom",
+      "value": "Inferred"
+     }
+    ],
+    "type": "ComponentsartifactCatalog_listChildSections_CPKENDPOINT",
+    "typeDesc": "listChildSections Endpoint"
+   },
+   {
+    "id": "f08cafe5-7493-798e-2f16-60e54d5af354",
+    "meta": "CPK",
+    "meta_endpoint": "listResourcesSubsections",
+    "meta_pluginId": "artifactCatalog",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "listResourcesSubsections"
+     },
+     {
+      "name": "stepName",
+      "type": "String",
+      "value": "OUTPUT"
+     },
+     {
+      "name": "kettleOutput",
+      "type": "kettleOutputCustom",
+      "value": "Inferred"
+     }
+    ],
+    "type": "ComponentsartifactCatalog_listResourcesSubsections_CPKENDPOINT",
+    "typeDesc": "listResourcesSubsections Endpoint"
+   },
+   {
+    "id": "d12a7fab-d705-e545-9ccd-ad29c8c13891",
+    "meta": "CPK",
+    "meta_endpoint": "downloadResource",
+    "meta_pluginId": "artifactCatalog",
+    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "type": "Id",
+      "value": "downloadResource"
+     },
+     {
+      "name": "stepName",
+      "type": "String",
+      "value": "OUTPUT"
+     },
+     {
+      "name": "kettleOutput",
+      "type": "kettleOutputCustom",
+      "value": "ResultFiles"
+     }
+    ],
+    "type": "ComponentsartifactCatalog_downloadResource_CPKENDPOINT",
+    "typeDesc": "downloadResource Endpoint"
+   }
+  ]
+ },
+ "filename": "/system/artifactCatalog/dashboards/artifactcatalog.cdfde",
  "layout": {
-  "title": "Filter Template",
   "rows": [
    {
     "id": "3677ce9b-54ea-4c45-20d2-c2d6363c670f",
-    "type": "LayoutResourceCode",
-    "typeDesc": "Resource",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "goUpFunction",
-      "type": "Id"
+      "type": "Id",
+      "value": "goUpFunction"
      },
      {
       "name": "resourceCode",
-      "value": "function goUp() {\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    var values = stack[stack.length-2];\n    if(values) {\n        switchSection(values[0], values[1]);\n    } else {\n        switchSection(null, Dashboards.i18nSupport.prop('menu.home'));\n    }\n} ",
-      "type": "Resource"
+      "type": "Resource",
+      "value": "function goUp() {\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    var values = stack[stack.length-2];\n    if(values) {\n        switchSection(values[0], values[1]);\n    } else {\n        switchSection(null, Dashboards.i18nSupport.prop('menu.home'));\n    }\n} "
      },
      {
       "name": "resourceType",
-      "value": "Javascript",
-      "type": "Label"
+      "type": "Label",
+      "value": "Javascript"
      }
-    ]
+    ],
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource"
    },
    {
     "id": "3de6603f-0221-1057-528f-f5bd9ea10685",
-    "type": "LayoutResourceFile",
-    "typeDesc": "Resource",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "projectJS",
-      "type": "Id"
+      "type": "Id",
+      "value": "projectJS"
      },
      {
       "name": "resourceFile",
-      "value": "/pentaho/api/repos/artifactCatalog/static/custom/js/artifactCatalog.js",
-      "type": "ResourceFile"
+      "type": "ResourceFile",
+      "value": "/pentaho/api/repos/artifactCatalog/static/custom/js/artifactCatalog.js"
      },
      {
       "name": "resourceType",
-      "value": "Javascript",
-      "type": "Label"
+      "type": "Label",
+      "value": "Javascript"
      }
-    ]
+    ],
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource"
    },
    {
     "id": "b516c27b-0018-e752-6418-d597eb1feb4c",
-    "type": "LayoutResourceFile",
-    "typeDesc": "Resource",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "projectCSS",
-      "type": "Id"
+      "type": "Id",
+      "value": "projectCSS"
      },
      {
       "name": "resourceFile",
-      "value": "/pentaho/api/repos/artifactCatalog/static/custom/css/artifactCatalog.css",
-      "type": "ResourceFile"
+      "type": "ResourceFile",
+      "value": "/pentaho/api/repos/artifactCatalog/static/custom/css/artifactCatalog.css"
      },
      {
       "name": "resourceType",
-      "value": "Css",
-      "type": "Label"
+      "type": "Label",
+      "value": "Css"
      }
-    ]
+    ],
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource"
    },
    {
     "id": "e12f9bf3-27f1-beb1-0a68-a5b0facd091b",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "UnIqEiD",
     "properties": [
      {
@@ -107,12 +1260,12 @@
       "type": "String",
       "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "5dc54aa4-6a22-269a-d641-ac5fd3a61298",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "e12f9bf3-27f1-beb1-0a68-a5b0facd091b",
     "properties": [
      {
@@ -180,267 +1333,267 @@
       "type": "String",
       "value": "header"
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "d92dd92c-ba39-9b26-8752-2f54608f4c61",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "5dc54aa4-6a22-269a-d641-ac5fd3a61298",
     "properties": [
      {
       "name": "name",
-      "value": "",
-      "type": "Id"
+      "type": "Id",
+      "value": ""
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "8fb9f705-23f7-6677-de1e-97ef187d1cba",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "d92dd92c-ba39-9b26-8752-2f54608f4c61",
     "properties": [
      {
       "name": "name",
-      "value": "",
-      "type": "Id"
+      "type": "Id",
+      "value": ""
      },
      {
       "name": "columnSpan",
-      "value": "20",
-      "type": "Integer"
+      "type": "Integer",
+      "value": "20"
      },
      {
       "name": "columnPrepend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnAppend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrependTop",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnAppendBottom",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBigBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "4a0f4170-f016-2494-2b05-ba1837162d39",
-    "type": "LayoutHtml",
-    "typeDesc": "Html",
     "parent": "8fb9f705-23f7-6677-de1e-97ef187d1cba",
     "properties": [
      {
       "name": "name",
-      "value": "",
-      "type": "Id"
+      "type": "Id",
+      "value": ""
      },
      {
       "name": "html",
-      "value": "<img src=\"/pentaho/api/repos/artifactCatalog/static/custom/img/logo.png\" alt=\"Company logo\"></img> ",
-      "type": "Html"
+      "type": "Html",
+      "value": "<img src=\"/pentaho/api/repos/artifactCatalog/static/custom/img/logo.png\" alt=\"Company logo\"></img> "
      },
      {
       "name": "fontSize",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "color",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutHtml",
+    "typeDesc": "Html"
    },
    {
     "id": "a6044a87-dc71-f298-510e-dbf28b4bd1be",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "d92dd92c-ba39-9b26-8752-2f54608f4c61",
     "properties": [
      {
       "name": "name",
-      "value": "LoggedInPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "LoggedInPanel"
      },
      {
       "name": "columnSpan",
-      "value": "3",
-      "type": "Integer"
+      "type": "Integer",
+      "value": "3"
      },
      {
       "name": "columnPrepend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnAppend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrependTop",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnAppendBottom",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBigBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "right",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": "right"
      },
      {
       "name": "cssClass",
-      "value": "loggedIn",
-      "type": "String"
+      "type": "String",
+      "value": "loggedIn"
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "1d42a21d-8025-fe38-fef2-fe9381c8ebc3",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "5dc54aa4-6a22-269a-d641-ac5fd3a61298",
     "properties": [
      {
       "name": "name",
-      "value": "PluginTitle",
-      "type": "Id"
+      "type": "Id",
+      "value": "PluginTitle"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "cda9bf5f-0f51-13db-68ac-616cef3e73be",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "UnIqEiD",
     "properties": [
      {
@@ -473,12 +1626,12 @@
       "type": "String",
       "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "UnIqEiD",
     "properties": [
      {
@@ -511,12 +1664,12 @@
       "type": "String",
       "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
     "properties": [
      {
@@ -584,126 +1737,126 @@
       "type": "String",
       "value": "sectionsTable"
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "debdd17d-4977-1180-35fc-5d5d3a4ab612",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
     "properties": [
      {
       "name": "name",
-      "value": "staticSectionsPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "staticSectionsPanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "47ff1f04-f097-12dc-6c71-7313fd6ff024",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
     "properties": [
      {
       "name": "name",
-      "value": "goUpPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "goUpPanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "6894d9f2-cfda-745e-6392-58c41a07e667",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "a75b059a-0f5b-deda-6d3f-aeba72af2fe5",
     "properties": [
      {
       "name": "name",
-      "value": "sectionsPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "sectionsPanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "sectionsTable",
-      "type": "String"
+      "type": "String",
+      "value": "sectionsTable"
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "791e69ca-0094-9704-402e-8f36a825d68b",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
     "properties": [
      {
@@ -771,1680 +1924,484 @@
       "type": "String",
       "value": "resourcesTable"
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "8544906e-60d6-335b-cd7b-06ec4cb7d445",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "791e69ca-0094-9704-402e-8f36a825d68b",
     "properties": [
      {
       "name": "name",
-      "value": "currentSectionPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "currentSectionPanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "currentSection",
-      "type": "String"
+      "type": "String",
+      "value": "currentSection"
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "93532bf7-96aa-4524-b6eb-edff2fe42d72",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "791e69ca-0094-9704-402e-8f36a825d68b",
     "properties": [
      {
       "name": "name",
-      "value": "breadcrumbs",
-      "type": "Id"
+      "type": "Id",
+      "value": "breadcrumbs"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "breadcrumbs",
-      "type": "String"
+      "type": "String",
+      "value": "breadcrumbs"
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "55ab29c1-7104-fa28-00aa-ac2ae219ca79",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "791e69ca-0094-9704-402e-8f36a825d68b",
     "properties": [
      {
       "name": "name",
-      "value": "welcomePanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "welcomePanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "383fd07a-e3e8-ed08-4793-25ca6b7ffea8",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "55ab29c1-7104-fa28-00aa-ac2ae219ca79",
     "properties": [
      {
       "name": "name",
-      "value": "",
-      "type": "Id"
+      "type": "Id",
+      "value": ""
      },
      {
       "name": "columnSpan",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrepend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnAppend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrependTop",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnAppendBottom",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBigBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "86b120b0-583e-aa9b-ba55-5cc644fa9298",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "383fd07a-e3e8-ed08-4793-25ca6b7ffea8",
     "properties": [
      {
       "name": "name",
-      "value": "welcomePanelHTML",
-      "type": "Id"
+      "type": "Id",
+      "value": "welcomePanelHTML"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "a1b9d0f7-dbae-b931-ffd1-18d3344786d3",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "383fd07a-e3e8-ed08-4793-25ca6b7ffea8",
     "properties": [
      {
       "name": "name",
-      "value": "sectionsTablePanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "sectionsTablePanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "d2159a45-d1b8-a9bb-6754-a2275e969e0c",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "791e69ca-0094-9704-402e-8f36a825d68b",
     "properties": [
      {
       "name": "name",
-      "value": "resourcesPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "resourcesPanel"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "",
-      "type": "String"
+      "type": "String",
+      "value": ""
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "d2713810-e8bd-aa3e-f462-f699231c565e",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
     "parent": "9b5e4665-60dd-d123-d49a-7cb9072a0540",
     "properties": [
      {
       "name": "name",
-      "value": "borderPanel",
-      "type": "Id"
+      "type": "Id",
+      "value": "borderPanel"
      },
      {
       "name": "columnSpan",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrepend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnAppend",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "columnPrependTop",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnAppendBottom",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "columnBigBorder",
-      "value": "false",
-      "type": "Boolean"
+      "type": "Boolean",
+      "value": "false"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "verticalBorder",
-      "type": "String"
+      "type": "String",
+      "value": "verticalBorder"
      }
-    ]
+    ],
+    "type": "LayoutColumn",
+    "typeDesc": "Column"
    },
    {
     "id": "6d181880-e6eb-b2df-dfe1-6d20778c3e79",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "OutdatedBrowser",
-      "type": "Id"
+      "type": "Id",
+      "value": "OutdatedBrowser"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": ""
      },
      {
       "name": "cssClass",
-      "value": "outdatedBrowser",
-      "type": "String"
+      "type": "String",
+      "value": "outdatedBrowser"
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "236b5c48-f928-99e2-421a-6cc215f0fe43",
-    "type": "LayoutRow",
-    "typeDesc": "Row",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "Footer",
-      "type": "Id"
+      "type": "Id",
+      "value": "Footer"
      },
      {
       "name": "height",
-      "value": "",
-      "type": "Integer"
+      "type": "Integer",
+      "value": ""
      },
      {
       "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
+      "type": "Color",
+      "value": ""
      },
      {
       "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
+      "type": "RoundCorners",
+      "value": ""
      },
      {
       "name": "textAlign",
-      "value": "center",
-      "type": "TextAlign"
+      "type": "TextAlign",
+      "value": "center"
      },
      {
       "name": "cssClass",
-      "value": "pie",
-      "type": "String"
+      "type": "String",
+      "value": "pie"
      }
-    ]
+    ],
+    "type": "LayoutRow",
+    "typeDesc": "Row"
    },
    {
     "id": "16247f92-da7e-df4f-c2da-88dd5d11209a",
-    "type": "LayoutResourceCode",
-    "typeDesc": "Resource",
     "parent": "UnIqEiD",
     "properties": [
      {
       "name": "name",
-      "value": "onReadyJS",
-      "type": "Id"
+      "type": "Id",
+      "value": "onReadyJS"
      },
      {
       "name": "resourceCode",
-      "value": "function switchSection(sectionId, sectionName) {\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n\n    if(sectionId) {\n        $(\"#welcomePanel\").hide();\n        //$(\"#resourcesPanel\").show();\n    } else {\n        $(\"#welcomePanel\").show();\n        //$(\"#resourcesPanel\").hide();\n    }\n    \n    if(sectionId) {\n        if(stack.length > 0) {\n            while($(\"#breadcrumbs p:contains('> \" + sectionName + \" >')\").length && stack[stack.length-1][0] != sectionId )\n                stack.pop();\n        }\n        \n        if(stack.length > 0) {\n            if(sectionId) {\n                if(stack[stack.length-1][0] != sectionId && sectionId) {\n                    if(stack.length > 1) {\n                        if(stack[stack.length-2][0] == sectionId)\n                            stack.pop();\n                        else\n                            stack.push([sectionId, sectionName]);\n                    } else\n                        stack.push([sectionId, sectionName]);\n                }\n            } else {\n                stack = [];\n            }\n        } else {\n            if(sectionId)\n                stack.push([sectionId, sectionName]);\n        }\n    } else {\n        stack = [];\n    }\n    Dashboards.fireChange('sectionStack', stack);\n    $(\"#currentSectionPanel h2\").html(sectionName);\n}\n\nfunction allResources() {\n    switchSection(-1, Dashboards.i18nSupport.prop(\"menu.fullList\"));\n}\n\n$(document).ready(function () {\n    //$(\"#resourcesPanel\").hide();\n\n    // Aviso de navegador antiguo\n    var browser = (function() {\n        var s = navigator.userAgent.toLowerCase();\n        var match = /(webkit)[ \\/]([\\w.]+)/.exec(s) ||\n            /(opera)(?:.*version)?[ \\/]([\\w.]+)/.exec(s) ||\n            /(msie) ([\\w.]+)/.exec(s) ||\n            !/compatible|like gecko/.test(s) && /(mozilla)(?:.*? rv:([\\w.]+))?/.exec(s) ||\n            [];\n        return { name: match[1] || \"\", version: match[2] || \"0\" };\n    }());\n    if ((browser.name == \"mozilla\") && (browser.version<2) || (browser.name == \"msie\") && (browser.version<10) ) {\n        $(\"#Body\").hide();\n        $(\"#OutdatedBrowser\").show();\n\n        // Desactivamos todos los componentes\n        for (var iC = 0; iC < Dashboards.components.length; iC++) {\n            var c = Dashboards.components[iC];\n            c.executeAtStart = false;\n        }\n    }\n}); ",
-      "type": "Resource"
+      "type": "Resource",
+      "value": "function switchSection(sectionId, sectionName) {\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n\n    if(sectionId) {\n        $(\"#welcomePanel\").hide();\n        //$(\"#resourcesPanel\").show();\n    } else {\n        $(\"#welcomePanel\").show();\n        //$(\"#resourcesPanel\").hide();\n    }\n    \n    if(sectionId) {\n        if(stack.length > 0) {\n            while($(\"#breadcrumbs p:contains('> \" + sectionName + \" >')\").length && stack[stack.length-1][0] != sectionId )\n                stack.pop();\n        }\n        \n        if(stack.length > 0) {\n            if(sectionId) {\n                if(stack[stack.length-1][0] != sectionId && sectionId) {\n                    if(stack.length > 1) {\n                        if(stack[stack.length-2][0] == sectionId)\n                            stack.pop();\n                        else\n                            stack.push([sectionId, sectionName]);\n                    } else\n                        stack.push([sectionId, sectionName]);\n                }\n            } else {\n                stack = [];\n            }\n        } else {\n            if(sectionId)\n                stack.push([sectionId, sectionName]);\n        }\n    } else {\n        stack = [];\n    }\n    Dashboards.fireChange('sectionStack', stack);\n    $(\"#currentSectionPanel h2\").html(sectionName);\n}\n\nfunction allResources() {\n    switchSection(-1, Dashboards.i18nSupport.prop(\"menu.fullList\"));\n}\n\n$(document).ready(function () {\n    //$(\"#resourcesPanel\").hide();\n\n    // Aviso de navegador antiguo\n    var browser = (function() {\n        var s = navigator.userAgent.toLowerCase();\n        var match = /(webkit)[ \\/]([\\w.]+)/.exec(s) ||\n            /(opera)(?:.*version)?[ \\/]([\\w.]+)/.exec(s) ||\n            /(msie) ([\\w.]+)/.exec(s) ||\n            !/compatible|like gecko/.test(s) && /(mozilla)(?:.*? rv:([\\w.]+))?/.exec(s) ||\n            [];\n        return { name: match[1] || \"\", version: match[2] || \"0\" };\n    }());\n    if ((browser.name == \"mozilla\") && (browser.version<2) || (browser.name == \"msie\") && (browser.version<10) ) {\n        $(\"#Body\").hide();\n        $(\"#OutdatedBrowser\").show();\n\n        // Desactivamos todos los componentes\n        for (var iC = 0; iC < Dashboards.components.length; iC++) {\n            var c = Dashboards.components[iC];\n            c.executeAtStart = false;\n        }\n    }\n}); "
      },
      {
       "name": "resourceType",
-      "value": "Javascript",
-      "type": "Label"
-     }
-    ]
-   }
-  ]
- },
- "components": {
-  "rows": [
-   {
-    "id": "OTHERCOMPONENTS",
-    "name": "Others",
-    "type": "Label",
-    "typeDesc": "<i>Group</i>",
-    "parent": "UnIqEiD",
-    "properties": [
-     {
-      "name": "Group",
-      "value": "Others",
-      "type": "Label"
-     }
-    ]
-   },
-   {
-    "id": "393c3efc-0807-6e56-ef29-17f85e5cba20",
-    "type": "ComponentsTable",
-    "typeDesc": "table Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "resourcesTable",
-      "type": "Id"
-     },
-     {
-      "name": "expandContainerObject",
-      "value": "",
-      "type": "String"
-     },
-     {
-      "name": "listeners",
-      "value": "['${p:refreshParam}','${p:sectionStack}']",
-      "type": "Listeners"
-     },
-     {
-      "name": "oLanguage",
-      "value": "artifactCatalog.i18n() ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "language",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "colFormats",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "colHeaders",
-      "value": "[\"id\",\"title\",\"image_url\",\"html_description\",\"visible\",\"jcr_path\",\"isSection\",\"n_sections\",\"n_resources\",\"action_buttons\"]",
-      "type": "Array"
-     },
-     {
-      "name": "colSortable",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "colTypes",
-      "value": "[\"hidden\",\"string\",\"background\",\"condclass\",\"hidden\",\"hidden\",\"string\",\"hidden\",\"hidden\",\"actionButtons\"]",
-      "type": "colTypesCustom"
-     },
-     {
-      "name": "colWidths",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "expandParameters",
-      "value": "[]",
-      "type": "ValuesArray"
-     },
-     {
-      "name": "parameters",
-      "value": "[[\"sectionStack\",\"sectionStack\"]]",
-      "type": "ValuesArray"
-     },
-     {
-      "name": "displayLength",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "expandOnClick",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "filter",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "info",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "lengthChange",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "paginate",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "sort",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "colSearchable",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "drawCallback",
-      "value": "function f(settings) {\n    var $table = $(settings.nTable);\n    $table.find(\"td.column1\").addClass(\"resourceTitle\");\n    $table.find(\"td.column3\").addClass(\"resourceDescription\");\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "dataSource",
-      "value": "listResourcesSubsections",
-      "type": "Datasource"
-     },
-     {
-      "name": "sDom",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "sortBy",
-      "value": "[[\"1\",\"ASC\"]]",
-      "type": "SortByArray"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "paginationType",
-      "value": "two_button",
-      "type": "PaginationType"
-     },
-     {
-      "name": "tableStyle",
-      "value": "classic",
-      "type": "TableStyle"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:resourcesPanel}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "paginateServerside",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "function f() {\n    var resourceButtonList = [], sectionButtonList = [];\n    if (artifactCatalog.userIsAdmin()) {\n        resourceButtonList = resourceButtonList.concat([\n            {\n                cssClass: \"editArtifactButton resourceButton sectionButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.editDescription\"),\n                action: function(v, st) {\n                    if (v.is_section) {\n                        window.open(artifactCatalog.getEndpointURL('sectionform') + '?sectionID=' + v.id);\n                    } else {\n                        window.open(artifactCatalog.getEndpointURL('resourceform') + '?resourceID=' + v.id);\n                    }\n                }\n            },\n            {\n                cssClass: \"editImplementationButton resourceButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.editImplementation\"),\n                action: function(v, st) {\n                    var url = artifactCatalog.getEditURL(v.path);\n                    if (url) {\n                        window.open(url);\n                    } else {\n                        alert(Dashboards.i18nSupport.prop(\"resource.noEditURL\").format(v.path));\n                    }\n                    \n                }\n            },\n            {\n                cssClass: \"downloadArtifactButton resourceButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.download\"),\n                action: function(v, st) {\n                    var url = artifactCatalog.getEndpointURL('downloadResource') + \"?parampath=\" + v.path;\n                    window.open(url);\n                }\n            },\n            {\n                cssClass: \"deleteArtifactButton resourceButton sectionButton\",\n                title: \" \",\n                tooltip: Dashboards.i18nSupport.prop(\"resource.delete\"),\n                action: function(v, st) {\n                    var confirmMessage, successMessage, errorMessage, endpoint, parameters;\n                    if (v.is_section) {\n                        endpoint = 'deletesection';\n                        parameters = {sectionID: v.id};\n                        successMessage = Dashboards.i18nSupport.prop(\"section.delete.success\").format(v.id);\n                        errorMessage = Dashboards.i18nSupport.prop(\"section.delete.failure\").format(v.id);\n                        if (v.n_sections > 0 && v.n_resources > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSectionsResources\").format(v.id, v.n_sections, v.n_resources);\n                        } else if (v.n_sections > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSections\").format(v.id, v.n_sections);\n                        } else if (v.n_resources > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasResources\").format(v.id, v.n_resources);\n                        } else {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasNothing\").format(v.id);\n                        }\n                    } else {\n                        endpoint = 'deleteresource';\n                        parameters = {resourceID: v.id};\n                        successMessage = Dashboards.i18nSupport.prop(\"resource.delete.success\").format(v.id);\n                        errorMessage = Dashboards.i18nSupport.prop(\"resource.delete.failure\").format(v.id);\n                        if (v.n_sections > 0) {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"resource.delete.hasSections\").format(v.id, v.n_sections);\n                        } else {\n                            confirmMessage = Dashboards.i18nSupport.prop(\"resource.delete.hasNothing\").format(v.id);\n                        }\n                    }\n                    if (window.confirm(confirmMessage)) {\n                        artifactCatalog.runEndpoint(endpoint, {\n                            params: parameters,\n                            success: function (data) {\n                                if (data.resultset.length > 0) {\n                                    alert(successMessage);\n                                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                                } else {\n                                    alert(errorMessage);\n                                }\n                            }\n                        });\n                    }\n                }\n            },\n        ]);\n    }\n\n    this.setAddInOptions(\n        \"colType\",\n        \"condclass\",\n        {condition: function(t, st) {\n            var sVisible = st.tableData[st.rowIdx][4];\n            if (sVisible !== true) {\n                return \"hiddenArtifact\";\n            }\n        }}\n    );\n\n    this.setAddInOptions(\n        \"colType\",\n        \"condstyles\",\n        {condition: function(t, st) {\n            var image_url = st.tableData[st.rowIdx][2];\n            if (image_url) {\n                return {\"background-image\": \"url(\" + encodeURI(image_url) + \")\"};\n            }\n        }}\n    );\n\n    this.setAddInOptions(\n       \"colType\",\n       \"actionButtons\",\n       {buttons: resourceButtonList}\n    );\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "function f() {\n    var $thisObj = $(\"#\" + this.htmlObject);\n    var lengthObj = $thisObj.find(\".dataTables_length\");\n    var filterObj = $thisObj.find(\".dataTables_filter\");\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    // If the user is an admin, place the 'Add resource' button\n    if (artifactCatalog.userIsAdmin()) {\n        if(stack.length) {\n            lengthObj.append($(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"resource.add\"))\n                .addClass(\"addResourceButton\")\n                .click(function () {\n                    var sectionID = parseInt(stack[stack.length-1][0]);\n    \n                    var url = artifactCatalog.getEndpointURL(\"resourceform\");\n                    if (sectionID != -1) {\n                        url = url + \"?sectionID=\" + sectionID;\n                    }\n                    window.open(url);\n                })\n            );\n        }\n    } else {\n        $thisObj.find(\".column6\").css(\"display\", \"none\");\n    }\n\n    // Make space for the object type combo box\n    lengthObj.css(\"width\", \"30%\");\n    filterObj.css(\"width\", \"30%\");\n\n    // Add the object type combo box (using client-based DataTables filtering)\n    var myself = this;\n    lengthObj.after(\n        $(\"<div></div>\")\n            .css(\"width\", \"30%\")\n            .css(\"float\", \"left\")\n            .append($(\"<label></label>\").text(Dashboards.i18nSupport.prop(\"resource.type\")+\":\"))\n            .append($(\"<select></select>\")\n                .append($(\"<option>\").val(\"\").text(Dashboards.i18nSupport.prop(\"resource.type.all\")))\n                .append($(\"<option>\").val(\"[.].cdf$\").text(Dashboards.i18nSupport.prop(\"resource.type.dashboard\")))\n                .append($(\"<option>\").val(\"[.]prpt$\").text(Dashboards.i18nSupport.prop(\"resource.type.report\")))\n                .change(function f() {\n                    var dataTable = $(\"#\" + myself.htmlObject).find(\"table\").dataTable();\n                    dataTable.fnFilter(this.value, 5, true, false);\n                })\n            )\n    );\n\n    $thisObj.find(\".column6:contains('\" + Dashboards.i18nSupport.prop('section') + \"') + .column9 .sectionButton\").css(\"display\", \"inline-block\");\n    $thisObj.find(\".column6:contains('\" + Dashboards.i18nSupport.prop('resource') + \"') + .column9 .resourceButton\").css(\"display\", \"inline-block\");\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postFetch",
-      "value": "function f(data) {\n    function swap(arr, i, j) {\n        var tmp = arr[i];\n        arr[i] = arr[j];\n        arr[j] = tmp;\n    }\n\n    // Add action buttons column\n    data.metadata.push({\n        colIndex: data.metadata.length,\n        colName: \"action_buttons\", colType: \"String\"\n    });\n    // Swap the image_url and jcr_path metadata fields\n    swap(data.metadata, 2, 5);\n    \n    _.each(data.resultset, function(e) {\n        // Wrap the title in a <div>\n        e[1] = '<div>' + e[1] + '</div>';\n        swap(e, 2, 5);\n\n        e.push({id: e[0], path: e[5], is_section: e[6], n_sections: e[7], n_resources: e[8]});\n        e[6] = Dashboards.i18nSupport.prop(e[6] ? 'section' : 'resource');\n    });\n    return data;\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "preChange",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postChange",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "extraOptions",
-      "value": "[]",
-      "type": "OptionArray"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     },
-     {
-      "name": "clickAction",
-      "value": "function f(ev) {\n    if (\"title\" != ev.category && \"image_url\" != ev.category) { return; }\n    var isSection = ev.tableData[ev.rowIdx][6] == Dashboards.i18nSupport.prop('section');\n\n    if (isSection) {\n        var sectionId = ev.tableData[ev.rowIdx][0];\n        var sectionName = ev.tableData[ev.rowIdx][1].replace(\"<div>\", \"\").replace(\"</div>\", \"\");\n        var stack = Dashboards.getParameterValue(\"sectionStack\");\n        var currentSectionId = parseInt(stack[stack.length-1] || 0);\n\n        if (sectionId != currentSectionId) {\n            switchSection(sectionId, sectionName);\n        }\n    } else {\n        var path = ev.tableData[ev.rowIdx][5];\n        var viewURL = artifactCatalog.getViewURL(path);\n        window.open(viewURL);\n    }\n}\n ",
-      "type": "JavaScript"
-     }
-    ]
-   },
-   {
-    "id": "5904e2f4-c345-5f6c-525e-62391d903ef3",
-    "type": "ComponentsTable",
-    "typeDesc": "table Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "sectionsTable",
-      "type": "Id"
-     },
-     {
-      "name": "expandContainerObject",
-      "value": "",
-      "type": "String"
-     },
-     {
-      "name": "listeners",
-      "value": "['${p:refreshParam}','${p:sectionStack}']",
-      "type": "Listeners"
-     },
-     {
-      "name": "oLanguage",
-      "value": "artifactCatalog.i18nSections() ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "language",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "colFormats",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "colHeaders",
-      "value": "[\"id\",\"Section\",\"Visible?\",\"image_url\",\"html_description\",\"n_children\",\"n_resources\",\"Buttons\"]",
-      "type": "Array"
-     },
-     {
-      "name": "colSortable",
-      "value": "[\"title\"]",
-      "type": "Array"
-     },
-     {
-      "name": "colTypes",
-      "value": "[\"hidden\",\"condclass\",\"hidden\",\"hidden\",\"hidden\",\"hidden\",\"hidden\",\"actionButtons\"]",
-      "type": "colTypesCustom"
-     },
-     {
-      "name": "colWidths",
-      "value": "[\"0\",\"90%\",\"0\",\"0\",\"0\",\"10%\"]",
-      "type": "Array"
-     },
-     {
-      "name": "expandParameters",
-      "value": "[]",
-      "type": "ValuesArray"
-     },
-     {
-      "name": "parameters",
-      "value": "[[\"sectionStack\",\"sectionStack\"]]",
-      "type": "ValuesArray"
-     },
-     {
-      "name": "displayLength",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "expandOnClick",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "filter",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "info",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "lengthChange",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "paginate",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "sort",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "colSearchable",
-      "value": "[\"title\"]",
-      "type": "Array"
-     },
-     {
-      "name": "drawCallback",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "dataSource",
-      "value": "listChildSections",
-      "type": "Datasource"
-     },
-     {
-      "name": "sDom",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "sortBy",
-      "value": "[]",
-      "type": "SortByArray"
-     },
-     {
-      "name": "priority",
-      "value": "5",
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "paginationType",
-      "value": "two_button",
-      "type": "PaginationType"
-     },
-     {
-      "name": "tableStyle",
-      "value": "classic",
-      "type": "TableStyle"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:sectionsPanel}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "paginateServerside",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "function f() {\n    var buttonList = [];\n    if (artifactCatalog.userIsAdmin()) {\n        buttonList = buttonList.concat([\n            {\n                cssClass: \"editArtifactButton\",\n                title: \" \",\n                tooltip: \"Edit\",\n                action: function(v, st) {\n                    debugger;\n                    window.open(artifactCatalog.getEndpointURL('sectionform') + '?sectionID=' + v.id);\n                }\n            },\n            {\n                cssClass: \"deleteArtifactButton\",\n                title: \" \",\n                tooltip: \"Delete\",\n                action: function(v, st) {\n                    endpoint = 'deletesection';\n                    parameters = {sectionID: v.id};\n                    successMessage = Dashboards.i18nSupport.prop(\"section.delete.success\").format(v.id);\n                    errorMessage = Dashboards.i18nSupport.prop(\"section.delete.failure\").format(v.id);\n                    if (v.n_sections > 0 && v.n_resources > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSectionsResources\").format(v.id, v.n_sections, v.n_resources);\n                    } else if (v.n_sections > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasSections\").format(v.id, v.n_sections);\n                    } else if (v.n_resources > 0) {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasResources\").format(v.id, v.n_resources);\n                    } else {\n                        confirmMessage = Dashboards.i18nSupport.prop(\"section.delete.hasNothing\").format(v.id);\n                    }\n                    if (window.confirm(confirmMessage)) {\n                        artifactCatalog.runEndpoint(endpoint, {\n                            params: parameters,\n                            success: function (data) {\n                                if (data.resultset.length > 0) {\n                                    alert(successMessage);\n                                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                                } else {\n                                    alert(errorMessage);\n                                }\n                            }\n                        });\n                    }\n                }\n            },\n        ]);\n    }\n    this.setAddInOptions(\n        \"colType\",\n        \"condclass\",\n        {condition: function(t, st) {\n            var sVisible = st.tableData[st.rowIdx][2];\n            if (sVisible !== true) {\n                return \"hiddenArtifact\";\n            }\n        }}\n    );\n    this.setAddInOptions(\n       \"colType\",\n       \"actionButtons\",\n       {buttons: buttonList}\n    );\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "function f() {\n    var sectionTable = $(\"#sectionsPanel .dataTables_wrapper\");\n    sectionTable.find(\"table\").addClass(\"sectionsTable\");\n\n    if (artifactCatalog.userIsAdmin()) {\n        sectionTable.append(\n            $(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"refresh\"))\n                .addClass(\"refreshResourcesButton\")\n                .click(function () {\n                    Dashboards.fireChange(\"refreshParam\", \"1\");\n                })\n        ).append(\n            $(\"<button></button>\")\n                .attr(\"title\", Dashboards.i18nSupport.prop(\"section.add\"))\n                .addClass(\"addSectionButton\")\n                .click(function () {\n                    window.open(artifactCatalog.getEndpointURL(\"sectionform\"));\n                })\n        );\n    }\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postFetch",
-      "value": "function f(data) {\n    // Add action buttons column\n    data.metadata.push({colIndex: data.metadata.length, colName: \"action_buttons\", colType: \"String\"});\n    _.each(data.resultset, function(e) {\n        // Add the ID to the button column, for its use from the callback\n        e.push({id: e[0], path: e[2], n_sections: e[5], n_resources: e[6]});\n    });\n    return data;\n}\n ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "preChange",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postChange",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "extraOptions",
-      "value": "[]",
-      "type": "OptionArray"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     },
-     {
-      "name": "clickAction",
-      "value": "function f(ev) {\n    if (\"title\" != ev.category) { return; }\n\n    var sectionId = parseInt(ev.tableData[ev.rowIdx][0]);\n    var sectionName = ev.tableData[ev.rowIdx][1];\n    var stack = Dashboards.getParameterValue(\"sectionStack\");\n    var currentSectionId = parseInt(stack[stack.length-1] || 0);\n\n    if (sectionId != currentSectionId) {\n        switchSection(sectionId, sectionName);\n    }\n    \n} ",
-      "type": "JavaScript"
-     }
-    ]
-   },
-   {
-    "id": "33aae211-6dd8-c5e0-3880-1facc3ed00a1",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "LoggedInText",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function f() {\n    var logout = Dashboards.i18nSupport.prop('logout'),\n        user = Dashboards.i18nSupport.prop('user');\n    // Current user\n    var text = \"<div>\" + user + \n    \": <em>\" + Dashboards.context.user + \"</em>.</div>\";\n\n    // Add logout URL (setting the logout success URL to this same page)\n    var logoutURL = \"/pentaho/Logout?logoutSuccessUrl=\" + encodeURI(window.location);\n    text += \"<div><a href=\\\"\" + logoutURL + \"\\\">(\" + logout + \n    \")</a></div>\";\n\n    return text;\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:LoggedInPanel}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "ab3a2bd4-9712-480a-3be9-665f33b3585e",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "StaticSections",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function() {\n    var home = Dashboards.i18nSupport.prop('menu.home');\n    var fullList = Dashboards.i18nSupport.prop('menu.fullList');\n    \n    var text = '<table class=\"sectionsTable staticSectionsTable\">'+\n    '<tbody>'+\n    '   <tr><td class=\"firstStaticSection\"><a href=\"#\" onClick=\"switchSection(null, \\'' + home + '\\'); return false;\">' + home + '</a></td></tr>' +\n    '<tr><td><a href=\"#\" onClick=\"allResources(); return false;\">' + fullList + '</a></td></tr>'+\n    '</tbody></table>';\n    return text;\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": "5",
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "staticSectionsPanel",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "d5dc2e67-61a8-a598-01d2-1cbe96808e83",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "ExtraAdminSections",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function f() {\n    var user, role;\n    user = Dashboards.i18nSupport.prop('menu.visibleByUser');\n    role = Dashboards.i18nSupport.prop('menu.visibleByRole');\n    \n    function extraAdminSection(title, endpoint) {\n        return $(\"<tr></tr>\").append(\n            $(\"<td></td>\").append(\n                $(\"<a></a>\")\n                    .attr(\"href\", artifactCatalog.getEndpointURL(endpoint))\n                    .attr(\"target\", \"_blank\")\n                    .text(\"(Admin) \" + title)\n                )\n            );\n    }\n\n    if (artifactCatalog.userIsAdmin()) {\n        $(\".staticSectionsTable\")\n            .find(\"tr:last-child\")\n            .after(extraAdminSection(user, \"userinformation\"))\n            .after(extraAdminSection(role, \"roleinformation\"))\n            ;\n    }\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": "7",
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "8d1b2016-69ae-55e0-c757-c0e8a77c0fc5",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "CurrentSection",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function f() {\n    var home = Dashboards.i18nSupport.prop('menu.home');\n        \n    return \"<h2>\" + home + \"</h2>\";\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:currentSectionPanel}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "3fd7d672-f0fe-fe08-bc39-676d9fc81f9e",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "Title",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function () {\n    var title = Dashboards.i18nSupport.prop(\"artifactCatalog.title\");\n    var text = '<div class=\"subheader\"><a href=\"artifactcatalog\">' + title + '</a></div>'; \n    return text;\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:PluginTitle}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "e789ca53-ef01-0eca-e32e-da8d29c46c34",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "WelcomeText",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function() {\n    var text = Dashboards.i18nSupport.prop('main.welcome')\n      + Dashboards.i18nSupport.prop('main.help1')\n      + Dashboards.i18nSupport.prop('main.help2');\n\n    return text;    \n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:welcomePanelHTML}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "1daf0b15-0e3c-0bd3-03eb-ac576f0e265b",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "OutdatedBrowserText",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function () {\n    var text = Dashboards.i18nSupport.prop('error.browser1') + Dashboards.i18nSupport.prop('error.browser2') + Dashboards.i18nSupport.prop('error.browser3');\n    \n    return text;\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:OutdatedBrowser}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "6cdb2603-5a7d-fef6-ee70-af86ee417e91",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "Copyright",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "[]",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function () {\n    return Dashboards.i18nSupport.prop('copyright');\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": 5,
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:Footer}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "78d933bc-dfee-e99a-77c9-634b8dd1cee0",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "GoUpOption",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "['${p:sectionStack}']",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function() {\n    var goUp = Dashboards.i18nSupport.prop('menu.goUp');\n    var stack = Dashboards.getParameterValue('sectionStack');\n        \n    if(stack.length > 0) {\n        var text = '<table class=\"sectionsTable staticSectionsTable\">'+\n        '<tbody>'+\n        '   <tr><td><a href=\"#\" onClick=\"goUp(); return false;\">' + goUp + '</a></td></tr>'+\n        '</tbody></table>';\n        return text;\n    } else {\n        return '';\n    }\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": "10",
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:goUpPanel}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "4c551175-9346-70e1-2f32-128ac0485409",
-    "type": "ComponentstextComponent",
-    "typeDesc": "Text Component",
-    "parent": "OTHERCOMPONENTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "BreadcrumbsMenu",
-      "type": "Id"
-     },
-     {
-      "name": "listeners",
-      "value": "['${p:sectionStack}']",
-      "type": "Listeners"
-     },
-     {
-      "name": "expression",
-      "value": "function f() {\n    var sections = Dashboards.getParameterValue(\"sectionStack\");\n    var home = Dashboards.i18nSupport.prop('menu.home');\n    var breadcrumbs = '<p>\\t<a href=\"#\" onclick=\"switchSection(null, \\'' + home + '\\');\">' + home + '</a>';\n\n    if (sections.length > 0) {\n        for(var i=0; i < sections.length; i++) {\n            breadcrumbs += \" > \" + '<a href=\"#\" onclick=\"switchSection(' + sections[i][0] + ', \\'' + sections[i][1] + '\\');\">' + sections[i][1]  + '</a>';\n        }\n        breadcrumbs += '</p>'\n        return breadcrumbs;\n    } else\n        return '';\n} ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "priority",
-      "value": "10",
-      "type": "Integer"
-     },
-     {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "htmlObject",
-      "value": "${p:breadcrumbs}",
-      "type": "HtmlObject"
-     },
-     {
-      "name": "executeAtStart",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "preExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "postExecution",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     }
-    ]
-   },
-   {
-    "id": "GENERIC",
-    "name": "Generic",
-    "type": "Label",
-    "typeDesc": "<i>Group</i>",
-    "parent": "UnIqEiD",
-    "properties": [
-     {
-      "name": "Group",
-      "value": "Generic",
-      "type": "Label"
-     }
-    ]
-   },
-   {
-    "id": "608045f2-b99a-1cda-985a-b825337fef77",
-    "type": "ComponentsParameter",
-    "typeDesc": "Simple parameter",
-    "parent": "GENERIC",
-    "properties": [
-     {
-      "name": "name",
-      "value": "resourceIdParam",
-      "type": "Id"
-     },
-     {
-      "name": "propertyValue",
-      "value": "",
-      "type": "String"
-     },
-     {
-      "name": "parameterViewRole",
-      "value": "unused",
-      "type": "parameterViewRoleCustom"
-     },
-     {
-      "name": "bookmarkable",
-      "value": "false",
-      "type": "Boolean"
-     }
-    ]
-   },
-   {
-    "id": "72907e70-1861-4702-7c8e-a79a5a14dc4f",
-    "type": "ComponentsParameter",
-    "typeDesc": "Simple parameter",
-    "parent": "GENERIC",
-    "properties": [
-     {
-      "name": "name",
-      "value": "refreshParam",
-      "type": "Id"
-     },
-     {
-      "name": "propertyValue",
-      "value": "",
-      "type": "String"
-     },
-     {
-      "name": "parameterViewRole",
-      "value": "unused",
-      "type": "parameterViewRoleCustom"
-     },
-     {
-      "name": "bookmarkable",
-      "value": "false",
-      "type": "Boolean"
-     }
-    ]
-   },
-   {
-    "id": "c8c769cd-29a8-7e28-f0c5-00d189530dad",
-    "type": "ComponentsJavascriptParameter",
-    "typeDesc": "Custom parameter",
-    "parent": "GENERIC",
-    "properties": [
-     {
-      "name": "name",
-      "value": "sectionStack",
-      "type": "Id"
-     },
-     {
-      "name": "javaScript",
-      "value": "sectionStack = []; ",
-      "type": "JavaScript"
-     },
-     {
-      "name": "parameterViewRole",
-      "value": "unused",
-      "type": "parameterViewRoleCustom"
-     },
-     {
-      "name": "bookmarkable",
-      "value": "false",
-      "type": "Boolean"
-     }
-    ]
-   }
-  ]
- },
- "datasources": {
-  "rows": [
-   {
-    "id": "ARTIFACTCATALOG_CPKENDPOINTS",
-    "name": "ARTIFACTCATALOG Endpoints",
-    "type": "Label",
-    "typeDesc": "<i>Group</i>",
-    "parent": "UnIqEiD",
-    "properties": [
-     {
-      "name": "Group",
-      "value": "ARTIFACTCATALOG Endpoints",
-      "type": "Label"
-     }
-    ]
-   },
-   {
-    "id": "459dfa97-e79f-221d-3892-f6d5a97a520c",
-    "type": "ComponentsartifactCatalog_listChildSections_CPKENDPOINT",
-    "typeDesc": "listChildSections Endpoint",
-    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "listChildSections",
-      "type": "Id"
-     },
-     {
-      "name": "stepName",
-      "value": "OUTPUT",
-      "type": "String"
-     },
-     {
-      "name": "kettleOutput",
-      "value": "Inferred",
-      "type": "kettleOutputCustom"
+      "type": "Label",
+      "value": "Javascript"
      }
     ],
-    "meta": "CPK",
-    "meta_pluginId": "artifactCatalog",
-    "meta_endpoint": "listChildSections"
-   },
-   {
-    "id": "f08cafe5-7493-798e-2f16-60e54d5af354",
-    "type": "ComponentsartifactCatalog_listResourcesSubsections_CPKENDPOINT",
-    "typeDesc": "listResourcesSubsections Endpoint",
-    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "listResourcesSubsections",
-      "type": "Id"
-     },
-     {
-      "name": "stepName",
-      "value": "OUTPUT",
-      "type": "String"
-     },
-     {
-      "name": "kettleOutput",
-      "value": "Inferred",
-      "type": "kettleOutputCustom"
-     }
-    ],
-    "meta": "CPK",
-    "meta_pluginId": "artifactCatalog",
-    "meta_endpoint": "listResourcesSubsections"
-   },
-   {
-    "id": "d12a7fab-d705-e545-9ccd-ad29c8c13891",
-    "type": "ComponentsartifactCatalog_downloadResource_CPKENDPOINT",
-    "typeDesc": "downloadResource Endpoint",
-    "parent": "ARTIFACTCATALOG_CPKENDPOINTS",
-    "properties": [
-     {
-      "name": "name",
-      "value": "downloadResource",
-      "type": "Id"
-     },
-     {
-      "name": "stepName",
-      "value": "OUTPUT",
-      "type": "String"
-     },
-     {
-      "name": "kettleOutput",
-      "value": "ResultFiles",
-      "type": "kettleOutputCustom"
-     }
-    ],
-    "meta": "CPK",
-    "meta_pluginId": "artifactCatalog",
-    "meta_endpoint": "downloadResource"
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource"
    }
-  ]
- },
- "filename": "/system/artifactCatalog/dashboards/artifactcatalog.cdfde"
+  ],
+  "title": "Filter Template"
+ }
 }
