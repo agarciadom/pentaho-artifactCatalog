@@ -21,7 +21,7 @@
         </parameter>
         <parameter>
             <name>jndi</name>
-            <default_value>artifact_catalog</default_value>
+            <default_value>SampleData</default_value>
             <description>JNDI connection to use for the DB.</description>
         </parameter>
         <parameter>
@@ -110,6 +110,8 @@
   <created_date>2014&#x2f;04&#x2f;05 23&#x3a;10&#x3a;58.552</created_date>
   <modified_user>-</modified_user>
   <modified_date>2014&#x2f;04&#x2f;05 23&#x3a;10&#x3a;58.552</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
@@ -137,8 +139,8 @@
   <connection>
     <name>Artifact Catalog</name>
     <server/>
-    <type>POSTGRESQL</type>
-    <access>, </access>
+    <type>GENERIC</type>
+    <access>JNDI</access>
     <database>&#x24;&#x7b;jndi&#x7d;</database>
     <port>1521</port>
     <username/>
@@ -173,13 +175,13 @@
   <hop> <from>Parse section_id</from><to>Sort rows</to><enabled>Y</enabled> </hop>
   <hop> <from>section_ids is not null&#x3f;</from><to>Split field to rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort rows</from><to>Log new relations</to><enabled>N</enabled> </hop>
-  <hop> <from>Add&#x3f;</from><to>Get new resource ID</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get new resource ID</from><to>rid_new -&#x3e; rid</to><enabled>Y</enabled> </hop>
-  <hop> <from>rid_new -&#x3e; rid</from><to>INSERT</to><enabled>Y</enabled> </hop>
   <hop> <from>UPDATE</from><to>Append streams</to><enabled>Y</enabled> </hop>
-  <hop> <from>INSERT</from><to>Append streams</to><enabled>Y</enabled> </hop>
   <hop> <from>Append streams</from><to>section_ids is not null&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>Get Variables</from><to>Add&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add&#x3f;</from><to>INSERT</to><enabled>Y</enabled> </hop>
+  <hop> <from>INSERT</from><to>Add &#x23; rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add &#x23; rows</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Append streams</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>&#x23; rows</name>
@@ -220,7 +222,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Get new resource ID</send_true_to>
+<send_true_to>INSERT</send_true_to>
 <send_false_to>UPDATE</send_false_to>
     <compare>
 <condition>
@@ -249,7 +251,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<head_name>INSERT</head_name>
+<head_name>Select values</head_name>
 <tail_name>UPDATE</tail_name>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -393,44 +395,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>172</xloc>
       <yloc>732</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>INSERT</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Artifact Catalog</connection>
-    <execute_each_row>Y</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>INSERT INTO resources &#x28;id, title, html_description, jcr_path, visible, image_url&#x29;&#xa;VALUES &#x28;&#x3f;, &#x3f;, &#x3f;, &#x3f;, &#x3f;, &#x3f;&#x29;&#x3b;&#xa;&#xa;&#xa;</sql>
-    <set_params>Y</set_params>
-    <insert_field>rows_inserted</insert_field>
-    <update_field>rows_updated</update_field>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-       <argument><name>resourceID</name></argument>
-       <argument><name>title</name></argument>
-       <argument><name>html_description</name></argument>
-       <argument><name>path</name></argument>
-       <argument><name>visible</name></argument>
-       <argument><name>image_url</name></argument>
-    </arguments>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>535</xloc>
-      <yloc>83</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -855,8 +819,8 @@
     </step>
 
   <step>
-    <name>Get new resource ID</name>
-    <type>Sequence</type>
+    <name>INSERT</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -865,26 +829,91 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <valuename>resourceID_new</valuename>
-      <use_database>Y</use_database>
-      <connection>Artifact Catalog</connection>
-      <schema/>
-      <seqname>resources_id_seq</seqname>
-      <use_counter>N</use_counter>
-      <counter_name/>
-      <start_at>1</start_at>
-      <increment_by>1</increment_by>
-      <max_value>999999999</max_value>
+    <connection>Artifact Catalog</connection>
+    <schema/>
+    <table>resources</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>Y</return_keys>
+    <return_field>rid</return_field>
+    <fields>
+        <field>
+          <column_name>TITLE</column_name>
+          <stream_name>title</stream_name>
+        </field>
+        <field>
+          <column_name>HTML_DESCRIPTION</column_name>
+          <stream_name>html_description</stream_name>
+        </field>
+        <field>
+          <column_name>JCR_PATH</column_name>
+          <stream_name>path</stream_name>
+        </field>
+        <field>
+          <column_name>VISIBLE</column_name>
+          <stream_name>visible</stream_name>
+        </field>
+        <field>
+          <column_name>IMAGE_URL</column_name>
+          <stream_name>image_url</stream_name>
+        </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>239</xloc>
-      <yloc>83</yloc>
+      <xloc>266</xloc>
+      <yloc>77</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>rid_new -&#x3e; rid</name>
+    <name>Add &#x23; rows</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var rows_inserted &#x3d; 1&#x3b;&#xa;var rows_updated &#x3d; 0&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>rows_inserted</name>
+        <rename>rows_inserted</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>rows_updated</name>
+        <rename>rows_updated</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>380</xloc>
+      <yloc>77</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -894,7 +923,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>resourceID_new</name>
+    <fields>      <field>        <name>rid</name>
         <rename>resourceID</rename>
         <length>-2</length>
         <precision>-2</precision>
@@ -922,11 +951,19 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>rows_updated</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>rows_inserted</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>387</xloc>
-      <yloc>83</yloc>
+      <xloc>494</xloc>
+      <yloc>77</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

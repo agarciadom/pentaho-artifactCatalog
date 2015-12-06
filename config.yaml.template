@@ -14,7 +14,10 @@ port: 8080
 baseURI: "/pentaho/api"
 
 # JNDI connection to the database
-jndi: "artifact_catalog"
+jndi: "SampleData"
+
+# DDL file within database/ to be used (needs to match the db type in jndi)
+ddlFile: "ddl-hsqldb.sql"
 
 # Regexps for filtering the artifacts to list in the admin dashboards
 # (whole filename has to match)

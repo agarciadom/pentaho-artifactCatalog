@@ -106,7 +106,7 @@
   <connection>
     <name>Artifact Catalog</name>
     <server/>
-    <type>POSTGRESQL</type>
+    <type>GENERIC</type>
     <access>JNDI</access>
     <database>&#x24;&#x7b;jndi&#x7d;</database>
     <port>1521</port>

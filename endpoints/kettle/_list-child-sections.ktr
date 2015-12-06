@@ -26,7 +26,7 @@
         </parameter>
         <parameter>
             <name>jndi</name>
-            <default_value>artifact_catalog</default_value>
+            <default_value>SampleData</default_value>
             <description/>
         </parameter>
         <parameter>
@@ -95,34 +95,15 @@
   <created_date>2014&#x2f;04&#x2f;04 19&#x3a;19&#x3a;03.660</created_date>
   <modified_user>-</modified_user>
   <modified_date>2014&#x2f;04&#x2f;04 19&#x3a;19&#x3a;03.660</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Recipient types in the REST API&#x3a; 0 &#x3d; user, 1 &#x3d; role&#x2f;group.</note>
-      <xloc>750</xloc>
-      <yloc>162</yloc>
-      <width>414</width>
-      <heigth>29</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>Artifact Catalog</name>
     <server/>
-    <type>POSTGRESQL</type>
+    <type>GENERIC</type>
     <access>JNDI</access>
     <database>&#x24;&#x7b;jndi&#x7d;</database>
     <port>1521</port>
@@ -144,41 +125,25 @@
     </attributes>
   </connection>
   <order>
+  <hop> <from>isAdmin x2</from><to>roots &#x28;unfiltered&#x29;</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort by title</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
-  <hop> <from>child sections</from><to>Append streams</to><enabled>Y</enabled> </hop>
-  <hop> <from>root sections</from><to>Append streams</to><enabled>Y</enabled> </hop>
-  <hop> <from>order fields</from><to>parent is NULL&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Remove parent field</from><to>root sections</to><enabled>Y</enabled> </hop>
-  <hop> <from>parent is NULL&#x3f;</from><to>Remove parent field</to><enabled>Y</enabled> </hop>
-  <hop> <from>child sections</from><to>child sections log</to><enabled>N</enabled> </hop>
-  <hop> <from>root sections</from><to>root sections log</to><enabled>N</enabled> </hop>
-  <hop> <from>order fields</from><to>fields log</to><enabled>N</enabled> </hop>
-  <hop> <from>Append streams</from><to>Sort by title</to><enabled>Y</enabled> </hop>
-  <hop> <from>currentRoles</from><to>Roles array</to><enabled>Y</enabled> </hop>
-  <hop> <from>Roles array</from><to>order fields</to><enabled>Y</enabled> </hop>
-  <hop> <from>parent is NULL&#x3f;</from><to>child sections</to><enabled>Y</enabled> </hop>
+  <hop> <from>Compute isAdmin</from><to>parent is NULL&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>parent is NULL&#x3f;</from><to>isAdmin x2, parent</to><enabled>Y</enabled> </hop>
+  <hop> <from>isAdmin x2, parent</from><to>children &#x28;unfiltered&#x29;</to><enabled>Y</enabled> </hop>
+  <hop> <from>parent is NULL&#x3f;</from><to>isAdmin x2</to><enabled>Y</enabled> </hop>
+  <hop> <from>parentID, currentRoles</from><to>Compute isAdmin</to><enabled>Y</enabled> </hop>
+  <hop> <from>roots &#x28;unfiltered&#x29;</from><to>OR</to><enabled>Y</enabled> </hop>
+  <hop> <from>children &#x28;unfiltered&#x29;</from><to>OR</to><enabled>Y</enabled> </hop>
+  <hop> <from>OR</from><to>is admin&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>is admin&#x3f;</from><to>currentRoles</to><enabled>Y</enabled> </hop>
+  <hop> <from>currentRoles</from><to>Split currentRoles</to><enabled>Y</enabled> </hop>
+  <hop> <from>Split currentRoles</from><to>Check if available</to><enabled>Y</enabled> </hop>
+  <hop> <from>Check if available</from><to>Remove roles and sr_id</to><enabled>Y</enabled> </hop>
+  <hop> <from>is admin&#x3f;</from><to>Remove isAdmin</to><enabled>Y</enabled> </hop>
+  <hop> <from>Remove isAdmin</from><to>Sort by ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>Remove roles and sr_id</from><to>Sort by ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort by ID</from><to>Sort by title</to><enabled>Y</enabled> </hop>
   </order>
-  <step>
-    <name>Append streams</name>
-    <type>Append</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<head_name>root sections</head_name>
-<tail_name>child sections</tail_name>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>832</xloc>
-      <yloc>229</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Copy rows to result</name>
     <type>RowsToResult</type>
@@ -192,14 +157,14 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1098</xloc>
-      <yloc>227</yloc>
+      <xloc>1040</xloc>
+      <yloc>614</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Remove parent field</name>
+    <name>isAdmin x2</name>
     <type>SelectValues</type>
     <description/>
     <distribute>N</distribute>
@@ -209,18 +174,29 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>parentID</name>
-      </remove>    </fields>     <cluster_schema/>
+    <fields>      <field>        <name>isAdmin</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin2</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin3</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>566</xloc>
-      <yloc>229</yloc>
+      <xloc>360</xloc>
+      <yloc>135</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Roles array</name>
+    <name>Compute isAdmin</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -234,17 +210,17 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var currentRoles &#x3d; &#x22;&#x7b;&#x22; &#x2b; currentRolesString &#x2b; &#x22;&#x7d;&#x22;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>currentRoles</name>
-        <rename>currentRoles</rename>
-        <type>String</type>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var isAdmin &#x3d; &#x21;&#x21;currentRolesString.match&#x28;&#x2f;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x2f;&#x29;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>isAdmin</name>
+        <rename>isAdmin</rename>
+        <type>Boolean</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>167</xloc>
-      <yloc>229</yloc>
+      <xloc>76</xloc>
+      <yloc>135</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -277,14 +253,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>965</xloc>
-      <yloc>229</yloc>
+      <xloc>918</xloc>
+      <yloc>614</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>child sections</name>
+    <name>children &#x28;unfiltered&#x29;</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -295,48 +271,22 @@
            <schema_name/>
            </partitioning>
     <connection>Artifact Catalog</connection>
-    <sql>SELECT s.id, s.title, s.visible, s.image_url, s.html_description, nc.n_children, nr.n_resources&#xa;FROM sections s&#xa;-- Administrators get child section &#x2b; resource counts &#x28;for the deletion prompt&#x29;&#xa;LEFT JOIN &#x28;SELECT parent, COUNT&#x28;1&#x29; n_children&#xa;           FROM sections&#xa;           GROUP BY parent&#xa;           HAVING parent IS NOT NULL AND &#x3f; &#x7e; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27;&#x29; nc ON s.id &#x3d; nc.parent&#xa;LEFT JOIN &#x28;SELECT section_id, COUNT&#x28;1&#x29; n_resources&#xa;           FROM sections_resources&#xa;           GROUP BY section_id&#xa;           HAVING &#x3f; &#x7e; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27;&#x29; nr ON s.id &#x3d; nr.section_id&#xa;WHERE s.parent &#x3d; &#x3f; AND &#x28; &#x28; s.visible AND s.allowed_roles &#x26;&#x26; &#x3f;&#x3a;&#x3a;character varying&#x5b;&#x5d; &#x29; OR &#x3f; &#x7e;&#x2a; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27; &#x29;&#xa;ORDER BY s.title&#xa;</sql>
+    <sql>SELECT s.id, s.title, s.visible, s.image_url, s.html_description, nc.n_children, nr.n_resources, &#x3f; isAdmin&#xa;FROM sections s&#xa;-- Administrators get child section &#x2b; resource counts &#x28;for the deletion prompt&#x29;&#xa;LEFT JOIN &#x28;SELECT parent, COUNT&#x28;1&#x29; n_children&#xa;           FROM sections&#xa;           GROUP BY parent&#xa;           HAVING parent IS NOT NULL AND &#x3f; &#x3d; true&#x29; nc ON s.id &#x3d; nc.parent&#xa;LEFT JOIN &#x28;SELECT section_id, COUNT&#x28;1&#x29; n_resources&#xa;           FROM sections_resources&#xa;           GROUP BY section_id&#xa;           HAVING &#x3f; &#x3d; true&#x29; nr ON s.id &#x3d; nr.section_id&#xa;WHERE s.parent &#x3d; &#x3f; AND s.visible&#xa;ORDER BY s.title&#xa;</sql>
     <limit>0</limit>
-    <lookup>parent is NULL&#x3f;</lookup>
+    <lookup>isAdmin x2, parent</lookup>
     <execute_each_row>Y</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>627</xloc>
-      <yloc>360</yloc>
+      <xloc>529</xloc>
+      <yloc>225</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>child sections log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>630</xloc>
-      <yloc>482</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>currentRoles</name>
+    <name>parentID, currentRoles</name>
     <type>GetVariable</type>
     <description/>
     <distribute>N</distribute>
@@ -374,40 +324,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>34</xloc>
-      <yloc>229</yloc>
+      <xloc>77</xloc>
+      <yloc>44</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>fields log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>300</xloc>
-      <yloc>358</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>order fields</name>
+    <name>isAdmin x2, parent</name>
     <type>SelectValues</type>
     <description/>
     <distribute>N</distribute>
@@ -417,31 +341,27 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>currentRolesString</name>
-        <rename>currentRolesString2</rename>
+    <fields>      <field>        <name>isAdmin</name>
+        <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>currentRolesString</name>
-        <rename>currentRolesString3</rename>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin2</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin3</rename>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>parentID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>currentRoles</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>currentRolesString</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>300</xloc>
-      <yloc>229</yloc>
+      <xloc>355</xloc>
+      <yloc>226</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -457,8 +377,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Remove parent field</send_true_to>
-<send_false_to>child sections</send_false_to>
+<send_true_to>isAdmin x2</send_true_to>
+<send_false_to>isAdmin x2, parent</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -474,14 +394,14 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>433</xloc>
-      <yloc>229</yloc>
+      <xloc>218</xloc>
+      <yloc>135</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>root sections</name>
+    <name>roots &#x28;unfiltered&#x29;</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -492,23 +412,23 @@
            <schema_name/>
            </partitioning>
     <connection>Artifact Catalog</connection>
-    <sql>SELECT s.id, s.title, s.visible, s.image_url, s.html_description, nc.n_children, nr.n_resources&#xa;FROM sections s&#xa;-- Administrators get child section &#x2b; resource counts &#x28;for the deletion prompt&#x29;&#xa;LEFT JOIN &#x28;SELECT parent, COUNT&#x28;1&#x29; n_children&#xa;           FROM sections&#xa;           GROUP BY parent&#xa;           HAVING parent IS NOT NULL AND &#x3f; &#x7e; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27;&#x29; nc ON s.id &#x3d; nc.parent&#xa;LEFT JOIN &#x28;SELECT section_id, COUNT&#x28;1&#x29; n_resources&#xa;           FROM sections_resources&#xa;           GROUP BY section_id&#xa;           HAVING &#x3f; &#x7e; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27;&#x29; nr ON s.id &#x3d; nr.section_id&#xa;WHERE s.parent IS NULL AND &#x28; &#x28; s.visible AND s.allowed_roles &#x26;&#x26; &#x3f;&#x3a;&#x3a;character varying&#x5b;&#x5d; &#x29; OR &#x3f; &#x7e;&#x2a; &#x27;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x27; &#x29;&#xa;ORDER BY s.title&#xa;</sql>
+    <sql>SELECT s.id, s.title, s.visible, s.image_url, s.html_description, nc.n_children, nr.n_resources, &#x3f; isAdmin&#xa;FROM sections s&#xa;-- Administrators get child section &#x2b; resource counts &#x28;for the deletion prompt&#x29;&#xa;LEFT JOIN &#x28;SELECT parent, COUNT&#x28;1&#x29; n_children&#xa;           FROM sections&#xa;           GROUP BY parent&#xa;           HAVING parent IS NOT NULL AND &#x3f; &#x3d; true&#x29; nc ON s.id &#x3d; nc.parent&#xa;LEFT JOIN &#x28;SELECT section_id, COUNT&#x28;1&#x29; n_resources&#xa;           FROM sections_resources&#xa;           GROUP BY section_id&#xa;           HAVING &#x3f; &#x3d; true&#x29; nr ON s.id &#x3d; nr.section_id&#xa;WHERE s.parent IS NULL AND s.visible&#xa;ORDER BY s.title&#xa;</sql>
     <limit>0</limit>
-    <lookup>Remove parent field</lookup>
+    <lookup>isAdmin x2</lookup>
     <execute_each_row>Y</execute_each_row>
     <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>699</xloc>
-      <yloc>229</yloc>
+      <xloc>502</xloc>
+      <yloc>135</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>root sections log</name>
-    <type>WriteToLog</type>
+    <name>OR</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -517,17 +437,225 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>700</xloc>
-      <yloc>87</yloc>
+      <xloc>640</xloc>
+      <yloc>135</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>is admin&#x3f;</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Remove isAdmin</send_true_to>
+<send_false_to>currentRoles</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ISADMIN</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Boolean</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>currentRoles</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>currentRoles</name>
+        <variable>&#x24;&#x7b;currentRoles&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Split currentRoles</name>
+    <type>SplitFieldToRows3</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+   <splitfield>currentRoles</splitfield>
+   <delimiter>,</delimiter>
+   <newfield>currentRole</newfield>
+   <rownum>N</rownum>
+   <rownum_field/>
+   <resetrownumber>Y</resetrownumber>
+   <delimiter_is_regex>N</delimiter_is_regex>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>385</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Check if available</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Artifact Catalog</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>sections_roles</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>Y</eat_row_on_failure>
+      <key>
+        <name>ID</name>
+        <field>SECTION_ID</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>currentRole</name>
+        <field>ROLE_NAME</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>ID</name>
+        <rename>sr_id</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>455</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove roles and sr_id</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>currentRoles</name>
+      </remove>      <remove>        <name>currentRole</name>
+      </remove>      <remove>        <name>sr_id</name>
+      </remove>      <remove>        <name>ISADMIN</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>529</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove isAdmin</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>ISADMIN</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>820</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by ID</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>820</xloc>
+      <yloc>614</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

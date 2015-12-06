@@ -280,6 +280,7 @@
        <variablemapping><variable>host</variable><field>host</field><input/></variablemapping>
        <variablemapping><variable>port</variable><field>port</field><input/></variablemapping>
        <variablemapping><variable>baseURI</variable><field>baseURI</field><input/></variablemapping>
+       <variablemapping><variable>ddlFile</variable><field>ddlFile</field><input/></variablemapping>
     <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     <execution_result_target_step/>

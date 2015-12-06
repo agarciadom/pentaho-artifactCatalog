@@ -306,6 +306,7 @@
        <variablemapping><variable>path</variable><field>path</field><input/></variablemapping>
        <variablemapping><variable>visible</variable><field>visible</field><input/></variablemapping>
        <variablemapping><variable>image_url</variable><field>image_url</field><input/></variablemapping>
+       <variablemapping><variable>ddlFile</variable><field>ddlFile</field><input/></variablemapping>
     <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     <execution_result_target_step/>

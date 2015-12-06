@@ -32,6 +32,11 @@
             <description>Username of the current user.</description>
         </parameter>
         <parameter>
+            <name>ddlFile</name>
+            <default_value/>
+            <description>Name of the filename in database&#x2f; that contains the DDL for the database.</description>
+        </parameter>
+        <parameter>
             <name>excludeArtifacts</name>
             <default_value/>
             <description>Regexp to exclude artifacts when listing all of them.</description>
@@ -87,11 +92,6 @@
             <description>Path to the resource in the JCR repository.</description>
         </parameter>
         <parameter>
-            <name>permissions</name>
-            <default_value/>
-            <description>Roles allowed to see a section.</description>
-        </parameter>
-        <parameter>
             <name>port</name>
             <default_value/>
             <description>Port number for the Pentaho REST API.</description>
@@ -100,6 +100,11 @@
             <name>resourceID</name>
             <default_value/>
             <description>Identifier for a resource.</description>
+        </parameter>
+        <parameter>
+            <name>roles</name>
+            <default_value/>
+            <description>Roles allowed to see a section.</description>
         </parameter>
         <parameter>
             <name>scheme</name>
@@ -147,6 +152,30 @@
             <description>Is the artifact visible&#x3f;</description>
         </parameter>
     </parameters>
+  <connection>
+    <name>Database</name>
+    <server/>
+    <type>GENERIC</type>
+    <access>JNDI</access>
+    <database>&#x24;&#x7b;jndi&#x7d;</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -196,7 +225,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>712</xloc>
+      <xloc>710</xloc>
       <yloc>61</yloc>
       </entry>
     <entry>
@@ -229,7 +258,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>441</xloc>
+      <xloc>530</xloc>
       <yloc>61</yloc>
       </entry>
     <entry>
@@ -242,8 +271,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>712</xloc>
-      <yloc>158</yloc>
+      <xloc>440</xloc>
+      <yloc>168</yloc>
+      </entry>
+    <entry>
+      <name>Run DDL</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;..&#x2f;..&#x2f;database&#x2f;&#x24;&#x7b;ddlFile&#x7d;</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Database</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>350</xloc>
+      <yloc>61</yloc>
       </entry>
   </entries>
   <hops>
@@ -257,8 +302,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Invoke transf.</from>
+      <to>Write To Log</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>START</from>
-      <to>Invoke transf.</to>
+      <to>Run DDL</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -266,7 +320,16 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Invoke transf.</from>
+      <from>Run DDL</from>
+      <to>Invoke transf.</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Run DDL</from>
       <to>Write To Log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>

@@ -198,6 +198,7 @@
           <parameters>       <variablemapping><variable>jndi</variable><field>jndi</field><input/></variablemapping>
        <variablemapping><variable>sectionID</variable><field>sectionID</field><input/></variablemapping>
        <variablemapping><variable>transformation</variable><field>transformation</field><input>Kettle transformation to be run.</input></variablemapping>
+       <variablemapping><variable>ddlFile</variable><field>ddlFile</field><input/></variablemapping>
     <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     <execution_result_target_step/>
