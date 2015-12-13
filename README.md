@@ -14,7 +14,7 @@ Assumptions
 
 The plugin assumes that admin users have the Administrator role and logged-in users have the Authenticated role, as in the default Pentaho setup. This is currently not configurable, sorry!
 
-This plugin has been tested with Pentaho 5.4.0.1 CE, using the built-in HSQLDB (SampleData) and PostgreSQL 9.x.
+This plugin has been tested with Pentaho 6.0.0 CE and three different database engines: the built-in HSQLDB (SampleData with the `pentaho-admin` user), PostgreSQL 9.4 and MySQL 5.6.7.
 
 Installation
 --

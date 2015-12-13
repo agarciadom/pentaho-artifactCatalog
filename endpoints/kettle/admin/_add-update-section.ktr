@@ -642,7 +642,7 @@
     <order_delete>deleted</order_delete>
     <lookup>
       <schema/>
-      <table>SECTIONS_ROLES</table>
+      <table>sections_roles</table>
       <key>
         <name>sectionID</name>
         <field>SECTION_ID</field>
@@ -687,7 +687,7 @@
            </partitioning>
     <connection>Artifact Catalog</connection>
     <schema/>
-    <table>SECTIONS</table>
+    <table>sections</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
