@@ -21,7 +21,7 @@ Minimal installation from source
 
 This installation uses the built-in HSQLDB database in a stock Pentaho install to store the catalog, and uses the CFR upload directory to store images.
 
-1. Go to the Pentaho User Console, go to "File > Manage Data Sources..." and edit the `SampleData` JDBC datasource to make it use the `pentaho-admin` user. ArtifactCatalog needs a user that can create tables, and the default `pentaho-user` user cannot do that.
+1. Go to the Pentaho User Console, go to "File > Manage Data Sources..." and edit the `SampleData` JDBC datasource to make it use the `pentaho_admin` user. ArtifactCatalog needs a user that can create tables, and the default `pentaho_user` user cannot do that.
 
 2. Clone the project outside of your Pentaho installation, and create a symlink to the `artifactCatalog` subfolder in your `pentaho-solutions/system` folder:
 
