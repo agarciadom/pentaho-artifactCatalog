@@ -25,8 +25,8 @@ This installation uses the built-in HSQLDB database in a stock Pentaho install t
 
 2. Clone the project outside of your Pentaho installation, and create a symlink to the `artifactCatalog` subfolder in your `pentaho-solutions/system` folder:
 
-       cd /path/to/pentaho-solutions/system
-       ln -s /path/to/pentaho-artifactCatalog artifactCatalog
+         cd /path/to/pentaho-solutions/system
+         ln -s /path/to/pentaho-artifactCatalog artifactCatalog
 
 3. Install the Community File Repository (CFR) plugin from the Marketplace.  We require it for uploading images from the resource and section management dashboards, and (by default) to serve them.
 
