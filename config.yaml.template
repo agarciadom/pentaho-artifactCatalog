@@ -20,9 +20,12 @@ excludeArtifacts: ".*(plugin[-]samples|bi[-]developers|_tmp).*"
 #   imagesDirectory should be the path to a directory served by the
 #   web server at imagesBaseURL. cfrUploadDirectory will usually be
 #   in a different folder, and cfrGrantRead should be false.
-imagesDirectory: "/srv/pentaho/biserver-ce/pentaho-solutions/system/.cfr"
+#
+# - You can use @solutions_dir@ to refer to the pentaho-solutions/system
+#   folder.
+imagesDirectory: "@solutions_dir@/.cfr"
 imagesBaseURL: "/pentaho/plugin/cfr/api/viewFile?fileName="
-cfrUploadDirectory: "/srv/pentaho/biserver-ce/pentaho-solutions/system/.cfr"
+cfrUploadDirectory: "@solutions_dir@/.cfr"
 
 # Grant all users access to uploaded images through CFR?
 cfrGrantRead: !!bool true

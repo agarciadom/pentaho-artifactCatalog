@@ -10,6 +10,16 @@
     <directory>&#x2f;</directory>
     <parameters>
         <parameter>
+            <name>cpk.plugin.dir</name>
+            <default_value>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;..</default_value>
+            <description>The plugin folder. This value is automatically set at runtime if &#x27;&#x23;&#x27; is removed from variable name.</description>
+        </parameter>
+        <parameter>
+            <name>cpk.solution.system.dir</name>
+            <default_value>&#x24;&#x7b;cpk.plugin.dir&#x7d;&#x2f;..</default_value>
+            <description>The pentaho-solutions folder. This value is automatically set at runtime if &#x27;&#x23;&#x27; is removed from variable name.</description>
+        </parameter>
+        <parameter>
             <name>fileName</name>
             <default_value/>
             <description>The name of the file that was uploaded.</description>
@@ -109,7 +119,6 @@
   <hop> <from>Copy src -&#x3e; dst</from><to>Delete src</to><enabled>Y</enabled> </hop>
   <hop> <from>Delete src</from><to>Scale image</to><enabled>Y</enabled> </hop>
   <hop> <from>Compute paths and final URL</from><to>path log</to><enabled>N</enabled> </hop>
-  <hop> <from>Select values</from><to>image log</to><enabled>N</enabled> </hop>
   <hop> <from>Compute paths and final URL</from><to>sourcePath &#x21;&#x3d; destPath</to><enabled>Y</enabled> </hop>
   <hop> <from>sourcePath &#x21;&#x3d; destPath</from><to>Copy src -&#x3e; dst</to><enabled>Y</enabled> </hop>
   <hop> <from>sourcePath &#x21;&#x3d; destPath</from><to>Scale image</to><enabled>Y</enabled> </hop>
@@ -119,6 +128,7 @@
   <hop> <from>Build CFR grant components</from><to>Log grant URL</to><enabled>N</enabled> </hop>
   <hop> <from>Build CFR grant components</from><to>Call endpoint</to><enabled>Y</enabled> </hop>
   <hop> <from>Call endpoint</from><to>Write to log</to><enabled>N</enabled> </hop>
+  <hop> <from>Scale image</from><to>image log</to><enabled>N</enabled> </hop>
   </order>
   <step>
     <name>Build CFR grant components</name>
@@ -181,6 +191,54 @@
     </step>
 
   <step>
+    <name>Call endpoint</name>
+    <type>CallEndpointStep</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <serverUrl>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;pentaho</serverUrl>
+    <userName>admin</userName>
+    <password>password</password>
+    <isBypassingAuthentication>Y</isBypassingAuthentication>
+    <moduleName>component</moduleName>
+    <isModuleFromField>N</isModuleFromField>
+    <endpointPath>url</endpointPath>
+    <httpMethod>method</httpMethod>
+    <isEndpointFromField>Y</isEndpointFromField>
+    <resultField>result</resultField>
+    <statusCodeField>status</statusCodeField>
+    <responseTimeField/>
+    <fields>
+      <field>
+        <fieldName>id</fieldName>
+        <parameter>id</parameter>
+        <defaultValue/>
+        </field>
+      <field>
+        <fieldName>path</fieldName>
+        <parameter>path</parameter>
+        <defaultValue/>
+        </field>
+      <field>
+        <fieldName>permission</fieldName>
+        <parameter>permission</parameter>
+        <defaultValue/>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>763</xloc>
+      <yloc>453</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Compute paths and final URL</name>
     <type>ScriptValueMod</type>
     <description/>
@@ -195,7 +253,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var sourcePath &#x3d; cfrUploadDirectory &#x2b; &#x27;&#x2f;&#x27; &#x2b; fileName&#x3b;&#xa;&#xa;var file &#x3d; fileName.replace&#x28;&#x2f; &#x2f;g,&#x27;_&#x27;&#x29;&#x3b;&#xa;&#xa;var destPath &#x3d; imagesDirectory &#x2b; &#x27;&#x2f;&#x27; &#x2b; file&#x3b;&#xa;var finalURL &#x3d; imagesBaseURL &#x2b; &#x27;&#x2f;&#x27; &#x2b; file&#x3b;&#xa;&#xa;var scale &#x3d; &#x27;mogrify -scale 375x200 &#x27; &#x2b; destPath&#x3b;</jsScript_script>
+        <jsScript_script>var sourcePath &#x3d; cfrUploadDirectory.replace&#x28;&#x2f;&#x40;solutions_dir&#x40;&#x2f;g, solutions_dir&#x29; &#x2b; &#x27;&#x2f;&#x27; &#x2b; fileName&#x3b;&#xa;&#xa;var file &#x3d; fileName.replace&#x28;&#x2f; &#x2f;g,&#x27;_&#x27;&#x29;&#x3b;&#xa;var destPath &#x3d; imagesDirectory.replace&#x28;&#x2f;&#x40;solutions_dir&#x40;&#x2f;g, solutions_dir&#x29; &#x2b; &#x27;&#x2f;&#x27; &#x2b; file&#x3b;&#xa;var finalURL &#x3d; imagesBaseURL &#x2b; &#x27;&#x2f;&#x27; &#x2b; file&#x3b;&#xa;&#xa;var scale &#x3d; &#x27;mogrify -scale 375x200 &#x27; &#x2b; destPath&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>sourcePath</name>
         <rename>sourcePath</rename>
         <type>String</type>
@@ -337,6 +395,18 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
+      <field>
+        <name>solutions_dir</name>
+        <variable>&#x24;&#x7b;cpk.solution.system.dir&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -435,7 +505,7 @@
     <name>Scale image</name>
     <type>ExecProcess</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -489,6 +559,32 @@
     </step>
 
   <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
+    <fields>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>910</xloc>
+      <yloc>453</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>cfrGrantRead&#x3f;</name>
     <type>FilterRows</type>
     <description/>
@@ -537,8 +633,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1198</xloc>
-      <yloc>227</yloc>
+      <xloc>1085</xloc>
+      <yloc>229</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -594,80 +690,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>602</xloc>
       <yloc>117</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Call endpoint</name>
-    <type>CallEndpointStep</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <serverUrl>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;pentaho</serverUrl>
-    <userName>admin</userName>
-    <password>password</password>
-    <isBypassingAuthentication>Y</isBypassingAuthentication>
-    <moduleName>component</moduleName>
-    <isModuleFromField>N</isModuleFromField>
-    <endpointPath>url</endpointPath>
-    <httpMethod>method</httpMethod>
-    <isEndpointFromField>Y</isEndpointFromField>
-    <resultField>result</resultField>
-    <statusCodeField>status</statusCodeField>
-    <responseTimeField/>
-    <fields>
-      <field>
-        <fieldName>id</fieldName>
-        <parameter>id</parameter>
-        <defaultValue/>
-        </field>
-      <field>
-        <fieldName>path</fieldName>
-        <parameter>path</parameter>
-        <defaultValue/>
-        </field>
-      <field>
-        <fieldName>permission</fieldName>
-        <parameter>permission</parameter>
-        <defaultValue/>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>763</xloc>
-      <yloc>453</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>453</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
