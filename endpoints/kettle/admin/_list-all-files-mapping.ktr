@@ -80,48 +80,23 @@
   <created_date>2014&#x2f;04&#x2f;11 22&#x3a;51&#x3a;47.842</created_date>
   <modified_user>-</modified_user>
   <modified_date>2014&#x2f;04&#x2f;11 22&#x3a;51&#x3a;47.842</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Escape URI</from><to>Get tree of Public</to><enabled>Y</enabled> </hop>
   <hop> <from>Exclude regexp</from><to>Exclude&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>Exclude&#x3f;</from><to>Leave only paths</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get tree of Public</from><to>Log &#x2f;file requests</to><enabled>N</enabled> </hop>
-  <hop> <from>Get tree of Public</from><to>Parse &#x3c;file&#x3e; elements</to><enabled>Y</enabled> </hop>
   <hop> <from>Include regexp</from><to>Include&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>Include&#x3f;</from><to>Exclude regexp</to><enabled>Y</enabled> </hop>
   <hop> <from>Leave only paths</from><to>Sort rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Parse &#x3c;file&#x3e; elements</from><to>Include regexp</to><enabled>Y</enabled> </hop>
-  <hop> <from>INPUT</from><to>Escape URI</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort rows</from><to>OUTPUT</to><enabled>Y</enabled> </hop>
+  <hop> <from>INPUT</from><to>Set components</to><enabled>Y</enabled> </hop>
+  <hop> <from>Set components</from><to>Call endpoint</to><enabled>Y</enabled> </hop>
+  <hop> <from>Call endpoint</from><to>Parse &#x3c;file&#x3e; elements</to><enabled>Y</enabled> </hop>
   </order>
-  <step>
-    <name>Escape URI</name>
-    <type>Janino</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-       <formula><field_name>escaped_uri</field_name>
-<formula_string>new java.net.URI&#x28;scheme, null, host, port.intValue&#x28;&#x29;, baseURI &#x2b; &#x22;&#x2f;repo&#x2f;files&#x2f;&#x3a;public&#x2f;tree&#x22;, null, null&#x29;.toASCIIString&#x28;&#x29;</formula_string>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<replace_field/>
-</formula>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>334</xloc>
-      <yloc>92</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Exclude regexp</name>
     <type>RegexEval</type>
@@ -149,8 +124,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>662</xloc>
-      <yloc>298</yloc>
+      <xloc>496</xloc>
+      <yloc>299</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -178,51 +153,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>787</xloc>
-      <yloc>298</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get tree of Public</name>
-    <type>Rest</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <applicationType>TEXT PLAIN</applicationType>
-    <method>GET</method>
-    <url>&#x24;&#x7b;scheme&#x7d;&#x3a;&#x2f;&#x2f;&#x24;&#x7b;host&#x7d;&#x3a;&#x24;&#x7b;port&#x7d;&#x24;&#x7b;baseURI&#x7d;&#x2f;repo&#x2f;files&#x2f;&#x3a;public&#x2f;tree</url>
-    <urlInField>Y</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField>escaped_uri</urlField>
-    <bodyField/>
-    <httpLogin>&#x24;&#x7b;ARTIFACTCATALOG_RESTAPI_USER&#x7d;</httpLogin>
-    <httpPassword>&#x24;&#x7b;ARTIFACTCATALOG_RESTAPI_PWD&#x7d;</httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      </parameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      </result>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>334</xloc>
-      <yloc>204</yloc>
+      <xloc>621</xloc>
+      <yloc>299</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -239,36 +171,12 @@
            <schema_name/>
            </partitioning>
     <fields>
-      <field>
-        <name>scheme</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>host</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>port</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>baseURI</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
         <select_unspecified>N</select_unspecified>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>197</xloc>
-      <yloc>92</yloc>
+      <xloc>79</xloc>
+      <yloc>95</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -300,8 +208,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>662</xloc>
-      <yloc>204</yloc>
+      <xloc>496</xloc>
+      <yloc>205</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -329,8 +237,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>787</xloc>
-      <yloc>204</yloc>
+      <xloc>621</xloc>
+      <yloc>205</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -353,34 +261,8 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>787</xloc>
-      <yloc>392</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Log &#x2f;file requests</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>334</xloc>
-      <yloc>298</yloc>
+      <xloc>621</xloc>
+      <yloc>393</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -398,8 +280,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>788</xloc>
-      <yloc>578</yloc>
+      <xloc>622</xloc>
+      <yloc>579</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -512,8 +394,8 @@ public boolean processRow(StepMetaInterface smi, StepDataInterface sdi) throws K
     </fields><clear_result_fields>Y</clear_result_fields>
 <info_steps></info_steps><target_steps></target_steps><usage_parameters></usage_parameters>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>498</xloc>
-      <yloc>204</yloc>
+      <xloc>332</xloc>
+      <yloc>205</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -546,8 +428,83 @@ public boolean processRow(StepMetaInterface smi, StepDataInterface sdi) throws K
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>787</xloc>
-      <yloc>486</yloc>
+      <xloc>621</xloc>
+      <yloc>487</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Call endpoint</name>
+    <type>CallEndpointStep</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <serverUrl>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;pentaho</serverUrl>
+    <userName>admin</userName>
+    <password>password</password>
+    <isBypassingAuthentication>Y</isBypassingAuthentication>
+    <moduleName>component</moduleName>
+    <isModuleFromField>N</isModuleFromField>
+    <endpointPath>url</endpointPath>
+    <httpMethod>method</httpMethod>
+    <isEndpointFromField>Y</isEndpointFromField>
+    <resultField>result</resultField>
+    <statusCodeField/>
+    <responseTimeField/>
+    <fields>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>190</xloc>
+      <yloc>204</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set components</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var component &#x3d; &#x27;platform&#x27;&#x3b;&#xa;var url &#x3d; &#x27;&#x2f;repo&#x2f;files&#x2f;&#x3a;public&#x2f;tree&#x27;&#x3b;&#xa;var method &#x3d; &#x27;GET&#x27;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>component</name>
+        <rename>component</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>url</name>
+        <rename>url</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>method</name>
+        <rename>method</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>78</xloc>
+      <yloc>204</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
