@@ -32,9 +32,13 @@
     <copy todir="${stage.dir}/${plugin.name}/" overwrite="true">
       <fileset dir=".">
         <include name="**/*"/>
-		  <exclude name="bin/"/>
+	<exclude name="bin/"/>
       </fileset>
     </copy>
+
+    <!-- Copy the template to the default location -->
+    <copy file="config.yaml.template" tofile="${stage.dir}/${plugin.name}/config.yaml" overwrite="true"/>
+
     <!-- create the version file -->
 	<tstamp/>			
 	<property name="sequential.build.id" value="manual-${DSTAMP}"/>
