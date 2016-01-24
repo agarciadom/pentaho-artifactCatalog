@@ -127,14 +127,12 @@
   <order>
   <hop> <from>isAdmin x2</from><to>roots &#x28;unfiltered&#x29;</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort by title</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
-  <hop> <from>Compute isAdmin</from><to>parent is NULL&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>parent is NULL&#x3f;</from><to>isAdmin x2, parent</to><enabled>Y</enabled> </hop>
   <hop> <from>isAdmin x2, parent</from><to>children &#x28;unfiltered&#x29;</to><enabled>Y</enabled> </hop>
   <hop> <from>parent is NULL&#x3f;</from><to>isAdmin x2</to><enabled>Y</enabled> </hop>
   <hop> <from>parentID, currentRoles</from><to>Compute isAdmin</to><enabled>Y</enabled> </hop>
   <hop> <from>roots &#x28;unfiltered&#x29;</from><to>OR</to><enabled>Y</enabled> </hop>
   <hop> <from>children &#x28;unfiltered&#x29;</from><to>OR</to><enabled>Y</enabled> </hop>
-  <hop> <from>OR</from><to>is admin&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>is admin&#x3f;</from><to>currentRoles</to><enabled>Y</enabled> </hop>
   <hop> <from>currentRoles</from><to>Split currentRoles</to><enabled>Y</enabled> </hop>
   <hop> <from>Split currentRoles</from><to>Check if available</to><enabled>Y</enabled> </hop>
@@ -143,7 +141,88 @@
   <hop> <from>Remove isAdmin</from><to>Sort by ID</to><enabled>Y</enabled> </hop>
   <hop> <from>Remove roles and sr_id</from><to>Sort by ID</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort by ID</from><to>Sort by title</to><enabled>Y</enabled> </hop>
+  <hop> <from>Compute isAdmin</from><to>parent is NULL&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>OR</from><to>Write to log</to><enabled>Y</enabled> </hop>
+  <hop> <from>Write to log</from><to>is admin&#x3f;</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Check if available</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Artifact Catalog</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>sections_roles</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>Y</eat_row_on_failure>
+      <key>
+        <name>ID</name>
+        <field>SECTION_ID</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>currentRole</name>
+        <field>ROLE_NAME</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>ID</name>
+        <rename>sr_id</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>455</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Compute isAdmin</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var isAdmin &#x3d; &#x21;&#x21;currentRolesString.match&#x28;&#x2f;&#x28;&#x5e;&#x7c;,&#x7c;&#x22;&#x29;Administrator&#x28;&#x24;&#x7c;,&#x7c;&#x22;&#x29;&#x2f;&#x29;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>isAdmin</name>
+        <rename>isAdmin</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>76</xloc>
+      <yloc>135</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Copy rows to result</name>
     <type>RowsToResult</type>
@@ -164,40 +243,8 @@
     </step>
 
   <step>
-    <name>isAdmin x2</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>      <field>        <name>isAdmin</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>isAdmin</name>
-        <rename>isAdmin2</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>isAdmin</name>
-        <rename>isAdmin3</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>360</xloc>
-      <yloc>135</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Compute isAdmin</name>
-    <type>ScriptValueMod</type>
+    <name>OR</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -206,21 +253,89 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var isAdmin &#x3d; &#x21;&#x21;currentRolesString.match&#x28;&#x2f;&#x28;&#x5e;&#x7c;,&#x29;Administrator&#x28;&#x24;&#x7c;,&#x29;&#x2f;&#x29;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>isAdmin</name>
-        <rename>isAdmin</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
+     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>76</xloc>
+      <xloc>640</xloc>
       <yloc>135</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove isAdmin</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>ISADMIN</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>820</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove roles and sr_id</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>currentRoles</name>
+      </remove>      <remove>        <name>currentRole</name>
+      </remove>      <remove>        <name>sr_id</name>
+      </remove>      <remove>        <name>ISADMIN</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>529</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by ID</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>820</xloc>
+      <yloc>614</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -260,6 +375,32 @@
     </step>
 
   <step>
+    <name>Split currentRoles</name>
+    <type>SplitFieldToRows3</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+   <splitfield>currentRoles</splitfield>
+   <delimiter>&#x5b;&#x22;,&#x5d;&#x2b;</delimiter>
+   <newfield>currentRole</newfield>
+   <rownum>N</rownum>
+   <rownum_field/>
+   <resetrownumber>Y</resetrownumber>
+   <delimiter_is_regex>Y</delimiter_is_regex>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>385</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>children &#x28;unfiltered&#x29;</name>
     <type>TableInput</type>
     <description/>
@@ -286,10 +427,10 @@
     </step>
 
   <step>
-    <name>parentID, currentRoles</name>
+    <name>currentRoles</name>
     <type>GetVariable</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -298,7 +439,7 @@
            </partitioning>
     <fields>
       <field>
-        <name>currentRolesString</name>
+        <name>currentRoles</name>
         <variable>&#x24;&#x7b;currentRoles&#x7d;</variable>
         <type>String</type>
         <format/>
@@ -309,23 +450,72 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
-      <field>
-        <name>parentID</name>
-        <variable>&#x24;&#x7b;parentID&#x7d;</variable>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>both</trim_type>
-      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>77</xloc>
-      <yloc>44</yloc>
+      <xloc>708</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>is admin&#x3f;</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Remove isAdmin</send_true_to>
+<send_false_to>currentRoles</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ISADMIN</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Boolean</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>708</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>isAdmin x2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>isAdmin</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin2</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>isAdmin</name>
+        <rename>isAdmin3</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>360</xloc>
+      <yloc>135</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -401,6 +591,51 @@
     </step>
 
   <step>
+    <name>parentID, currentRoles</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>currentRolesString</name>
+        <variable>&#x24;&#x7b;currentRoles&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>parentID</name>
+        <variable>&#x24;&#x7b;parentID&#x7d;</variable>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>77</xloc>
+      <yloc>44</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>roots &#x28;unfiltered&#x29;</name>
     <type>TableInput</type>
     <description/>
@@ -427,8 +662,8 @@
     </step>
 
   <step>
-    <name>OR</name>
-    <type>Dummy</type>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -437,225 +672,17 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>135</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>is admin&#x3f;</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Remove isAdmin</send_true_to>
-<send_false_to>currentRoles</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>ISADMIN</leftvalue>
- <function>&#x3d;</function>
- <rightvalue/>
- <value><name>constant</name><type>Boolean</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>708</xloc>
-      <yloc>225</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>currentRoles</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
     <fields>
-      <field>
-        <name>currentRoles</name>
-        <variable>&#x24;&#x7b;currentRoles&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>708</xloc>
-      <yloc>305</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Split currentRoles</name>
-    <type>SplitFieldToRows3</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-   <splitfield>currentRoles</splitfield>
-   <delimiter>,</delimiter>
-   <newfield>currentRole</newfield>
-   <rownum>N</rownum>
-   <rownum_field/>
-   <resetrownumber>Y</resetrownumber>
-   <delimiter_is_regex>N</delimiter_is_regex>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>708</xloc>
-      <yloc>385</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Check if available</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Artifact Catalog</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>sections_roles</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>Y</eat_row_on_failure>
-      <key>
-        <name>ID</name>
-        <field>SECTION_ID</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>currentRole</name>
-        <field>ROLE_NAME</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>ID</name>
-        <rename>sr_id</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>708</xloc>
-      <yloc>455</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Remove roles and sr_id</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>currentRoles</name>
-      </remove>      <remove>        <name>currentRole</name>
-      </remove>      <remove>        <name>sr_id</name>
-      </remove>      <remove>        <name>ISADMIN</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>708</xloc>
-      <yloc>529</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Remove isAdmin</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>ISADMIN</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>820</xloc>
-      <yloc>305</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort by ID</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>ID</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>820</xloc>
-      <yloc>614</yloc>
+      <xloc>754</xloc>
+      <yloc>141</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
