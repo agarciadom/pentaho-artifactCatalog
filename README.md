@@ -38,7 +38,7 @@ This installation uses the built-in HSQLDB database in a stock Pentaho install t
 
 7. We heavily recommend installing `mogrify` if you can (see "Image resizing" below).
 
-8. We also recommend configuring Pentaho to make users authenticate through the Pentaho web-based form, instead of an ugly HTTP Basic form. See "Web-based authentcation" below.
+8. We also recommend configuring Pentaho to make users authenticate through the Pentaho web-based form, instead of an ugly HTTP Basic form. See "Web-based authentication" below.
 
 Customization options
 --
@@ -95,7 +95,9 @@ directory.
 Web-based authentication
 --
 
-If you want users that go straight to this dashboard to authenticate through the default web-based form, you will need to edit `pentaho-solutions/system/applicationContext-spring-security.xml` so the endpoint for the main dashboard has the same security filters as a regular Pentaho page. This way, instead of an ugly HTTP Basic auth form you will get the default Pentaho login form. The `filterInvocationDefinitionSource` property in the `filterChainProxy` bean has to be edited, adding at the beginning a pattern with the right URL and the same filters as for the `/**` pattern. It would look something like this (ignore the `...`):
+If you want users that go straight to this dashboard to authenticate through the default web-based form, you will need to edit `pentaho-solutions/system/applicationContext-spring-security.xml` so the endpoint for the main dashboard has the same security filters as a regular Pentaho page. This way, instead of an ugly HTTP Basic auth form you will get the default Pentaho login form.
+
+The `filterInvocationDefinitionSource` property in the `filterChainProxy` bean has to be edited, adding at the beginning a pattern with the right URL and the same filters as for the `/**` pattern. It would look something like this (ignore the `...`):
 
         <property name="filterInvocationDefinitionSource">
           <value>
