@@ -323,7 +323,7 @@
     <isBypassingAuthentication>Y</isBypassingAuthentication>
     <moduleName>platform</moduleName>
     <isModuleFromField>N</isModuleFromField>
-    <endpointPath>&#x2f;userroledao&#x2f;roles</endpointPath>
+    <endpointPath>&#x2f;userrolelist&#x2f;allRoles</endpointPath>
     <httpMethod>GET</httpMethod>
     <isEndpointFromField>N</isEndpointFromField>
     <resultField>result</resultField>
